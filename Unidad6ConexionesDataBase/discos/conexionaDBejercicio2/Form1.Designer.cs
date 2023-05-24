@@ -28,35 +28,54 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.dgvListaDiscos = new System.Windows.Forms.DataGridView();
+            this.pbxpokemons = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvListaDiscos)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxpokemons)).BeginInit();
             this.SuspendLayout();
             // 
-            // dataGridView1
+            // dgvListaDiscos
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(76, 100);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(692, 150);
-            this.dataGridView1.TabIndex = 0;
+            this.dgvListaDiscos.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
+            this.dgvListaDiscos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.dgvListaDiscos.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.RaisedHorizontal;
+            this.dgvListaDiscos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvListaDiscos.GridColor = System.Drawing.SystemColors.Highlight;
+            this.dgvListaDiscos.Location = new System.Drawing.Point(12, 100);
+            this.dgvListaDiscos.Name = "dgvListaDiscos";
+            this.dgvListaDiscos.Size = new System.Drawing.Size(487, 172);
+            this.dgvListaDiscos.TabIndex = 0;
+            this.dgvListaDiscos.SelectionChanged += new System.EventHandler(this.dgvListaDiscos_SelectionChanged);
+            // 
+            // pbxpokemons
+            // 
+            this.pbxpokemons.Location = new System.Drawing.Point(518, 100);
+            this.pbxpokemons.Name = "pbxpokemons";
+            this.pbxpokemons.Size = new System.Drawing.Size(219, 172);
+            this.pbxpokemons.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbxpokemons.TabIndex = 1;
+            this.pbxpokemons.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.pbxpokemons);
+            this.Controls.Add(this.dgvListaDiscos);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvListaDiscos)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxpokemons)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvListaDiscos;
+        private System.Windows.Forms.PictureBox pbxpokemons;
     }
 }
 

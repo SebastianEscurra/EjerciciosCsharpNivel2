@@ -21,7 +21,7 @@ namespace conexionaDBejercicio2
             {
                 conexion.ConnectionString = "server= .\\SQLexpress;database=DISCOS_DB;integrated security=true;";
                 comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = "select d.Titulo,d.CantidadCanciones,d.FechaLanzamiento,e.Descripcion Estilo from DISCOS d , ESTILOS e where d.IdEstilo=e.Id";
+                comando.CommandText = "select d.Titulo,d.CantidadCanciones,d.FechaLanzamiento,e.Descripcion Estilo,d.UrlImagenTapa  from DISCOS d , ESTILOS e where d.IdEstilo=e.Id";
                 comando.Connection = conexion;
 
                 conexion.Open();
@@ -35,7 +35,9 @@ namespace conexionaDBejercicio2
                     aux.titulo = (string)lector["Titulo"];
                     aux.cantidadDeCanciones = (int)lector["CantidadCanciones"];
                     aux.fechaDeLanzamiento = (DateTime)lector["FechaLanzamiento"];
-                    aux.estilo = lector.GetString(3);
+                    aux.estilo = new Estilo();
+                    aux.estilo.descripcion = (string)lector["Estilo"];
+                    aux.UrlImagen = (string)lector["UrlImagenTapa"];
                     discos.Add(aux);
                 }
                 conexion.Close();
@@ -47,6 +49,7 @@ namespace conexionaDBejercicio2
 
                 throw ex;
             }
+            
         }
     }
 }

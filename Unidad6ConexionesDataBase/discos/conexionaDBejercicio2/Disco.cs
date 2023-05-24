@@ -11,6 +11,9 @@ namespace conexionaDBejercicio2
         public string titulo { get; set; }
         public int cantidadDeCanciones { get; set; }
         public DateTime fechaDeLanzamiento { get; set; }
-        public string estilo { get; set; }  
+        public Estilo estilo { get; set; }
+        public string UrlImagen { get; set; }
+
+       
     }
 }
