@@ -13,7 +13,7 @@ namespace dispenser
             Dispenser cool = new Dispenser(150);
             cool._marca = "cool";
             Console.WriteLine("bidon de fabrica: "+ cool.bidones);
-            cool.bidones = "cimes";
+            cool.bidones = "ivess";
             Console.WriteLine("descripcion del producto: ");
             Console.WriteLine($"codigo: {cool._codArticulo}");
             Console.WriteLine($"marca: {cool._marca}" );
@@ -39,6 +39,10 @@ namespace dispenser
             Console.WriteLine(atma.aguaCaliente());
             atma.apagar();
             Console.WriteLine(atma.aguaCaliente());
+            Console.WriteLine(atma.aguaCaliente());
+            Console.WriteLine(atma.aguaCaliente());
+            Console.WriteLine(atma.aguaCaliente());
+
 
 
         }
