@@ -14,6 +14,7 @@ namespace AppFabricaDeCalzadoFemenino
         public Producto descripcion { get; set; }
         public int cantidad { get; set; }
         public double presupuesto { get; set; }
+        public string presupuestoFinal { get; set; }
         public DateTime fechaDePedido { get; set; }
         public DateTime fechaDeEntrega { get; set; }
         public string estado { get; set; }

@@ -26,7 +26,10 @@ namespace AppFabricaDeCalzadoFemenino
             dgvListaPedidos.DataSource = pedidos;
             dgvListaPedidos.Columns[0].Visible = false;
             dgvListaPedidos.Columns[3].Visible = false;
-            
+            dgvListaPedidos.Columns["presupuesto"].Visible = false;
+
+
+
 
 
         }
@@ -34,7 +37,19 @@ namespace AppFabricaDeCalzadoFemenino
         private void dgvListaPedidos_SelectionChanged(object sender, EventArgs e)
         {
             Pedido pedidoActual = (Pedido)dgvListaPedidos.CurrentRow.DataBoundItem;
-            pbxImagenCalzados.Load(pedidoActual.tipoDeCalzado.UrlImagen);
+            mostrarImagen(pedidoActual.tipoDeCalzado.UrlImagen);
+        }
+
+        public void mostrarImagen(string url)
+        {
+            try
+            {
+            pbxImagenCalzados.Load(url);
+            }
+            catch (Exception)
+            {
+                pbxImagenCalzados.Load("https://cdn-icons-png.flaticon.com/512/85/85488.png");
+            }
         }
     }
 }

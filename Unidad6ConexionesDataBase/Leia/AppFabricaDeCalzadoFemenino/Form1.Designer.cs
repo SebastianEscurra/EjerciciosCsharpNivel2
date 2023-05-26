@@ -28,43 +28,77 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvListaPedidos = new System.Windows.Forms.DataGridView();
             this.pbxImagenCalzados = new System.Windows.Forms.PictureBox();
+            this.lblTitulo = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListaPedidos)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImagenCalzados)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvListaPedidos
             // 
+            this.dgvListaPedidos.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.dgvListaPedidos.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(238)))), ((int)(((byte)(242)))), ((int)(((byte)(128)))));
+            this.dgvListaPedidos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(241)))), ((int)(((byte)(242)))), ((int)(((byte)(216)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI Historic", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(24)))), ((int)(((byte)(38)))));
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(242)))), ((int)(((byte)(99)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(242)))), ((int)(((byte)(99)))));
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvListaPedidos.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvListaPedidos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvListaPedidos.Location = new System.Drawing.Point(53, 68);
+            this.dgvListaPedidos.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(226)))), ((int)(((byte)(242)))), ((int)(((byte)(99)))));
+            this.dgvListaPedidos.Location = new System.Drawing.Point(37, 78);
             this.dgvListaPedidos.Name = "dgvListaPedidos";
-            this.dgvListaPedidos.Size = new System.Drawing.Size(500, 150);
+            this.dgvListaPedidos.Size = new System.Drawing.Size(761, 150);
             this.dgvListaPedidos.TabIndex = 0;
             this.dgvListaPedidos.SelectionChanged += new System.EventHandler(this.dgvListaPedidos_SelectionChanged);
             // 
             // pbxImagenCalzados
             // 
-            this.pbxImagenCalzados.Location = new System.Drawing.Point(559, 68);
+            this.pbxImagenCalzados.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.pbxImagenCalzados.BackColor = System.Drawing.Color.Transparent;
+            this.pbxImagenCalzados.Location = new System.Drawing.Point(297, 234);
             this.pbxImagenCalzados.Name = "pbxImagenCalzados";
-            this.pbxImagenCalzados.Size = new System.Drawing.Size(185, 150);
+            this.pbxImagenCalzados.Size = new System.Drawing.Size(231, 191);
             this.pbxImagenCalzados.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbxImagenCalzados.TabIndex = 1;
             this.pbxImagenCalzados.TabStop = false;
+            // 
+            // lblTitulo
+            // 
+            this.lblTitulo.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblTitulo.AutoSize = true;
+            this.lblTitulo.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.lblTitulo.Font = new System.Drawing.Font("Humanst521 BT", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(1)))), ((int)(((byte)(24)))), ((int)(((byte)(38)))));
+            this.lblTitulo.Location = new System.Drawing.Point(315, 29);
+            this.lblTitulo.MinimumSize = new System.Drawing.Size(227, 35);
+            this.lblTitulo.Name = "lblTitulo";
+            this.lblTitulo.Size = new System.Drawing.Size(227, 35);
+            this.lblTitulo.TabIndex = 2;
+            this.lblTitulo.Text = "Lista de Pedidos";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(242)))), ((int)(((byte)(242)))), ((int)(((byte)(242)))));
+            this.ClientSize = new System.Drawing.Size(824, 450);
+            this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.pbxImagenCalzados);
             this.Controls.Add(this.dgvListaPedidos);
+            this.MinimumSize = new System.Drawing.Size(840, 489);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvListaPedidos)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImagenCalzados)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -72,6 +106,7 @@
 
         private System.Windows.Forms.DataGridView dgvListaPedidos;
         private System.Windows.Forms.PictureBox pbxImagenCalzados;
+        private System.Windows.Forms.Label lblTitulo;
     }
 }
 

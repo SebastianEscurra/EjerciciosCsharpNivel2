@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using System.Globalization;
 
 namespace AppFabricaDeCalzadoFemenino
 {
@@ -42,6 +43,7 @@ namespace AppFabricaDeCalzadoFemenino
                     aux.tipoDeCalzado.precio = (double)lector["PrecioUnitario"];
                     aux.presupuesto = aux.cantidad * aux.tipoDeCalzado.precio;
                     aux.tipoDeCalzado.UrlImagen = (string)lector["URLimagen"];
+                    aux.presupuestoFinal = aux.presupuesto.ToString("C0",CultureInfo.GetCultureInfo("es-AR"));
 
                  
                     pedidos.Add(aux);
