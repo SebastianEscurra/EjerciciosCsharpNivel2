@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
+using Dominio;
 
-namespace conexionDB
+namespace Negocio
 {
-    internal class PokemonDatos
+    public class PokemonDatos
     {
         public List<Pokemon> obtenerListaPokemon()
         {
@@ -23,7 +24,7 @@ namespace conexionDB
             {
                 conexion.ConnectionString = "server= (local)\\SQLexpress;database=POKEDEX_DB;integrated security=true;";
                 comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = "select p.Numero,p.Nombre,p.Descripcion,e.Descripcion Tipo from POKEMONS p, ELEMENTOS e where p.IdTipo=e.Id";
+                comando.CommandText = "select p.Numero,p.Nombre,p.Descripcion,e.Descripcion Tipo,p.UrlImagen url from POKEMONS p, ELEMENTOS e where p.IdTipo=e.Id";
                 comando.Connection = conexion;
 
                 conexion.Open();
@@ -37,6 +38,7 @@ namespace conexionDB
                     aux.numero = (int)lector["Numero"];
                     aux.descripcion = (string)lector["Descripcion"];
                     aux.tipo = lector.GetString(3);
+                    aux.urlImagen = (string)lector["url"];
 
                     pokemons.Add(aux);
                 }

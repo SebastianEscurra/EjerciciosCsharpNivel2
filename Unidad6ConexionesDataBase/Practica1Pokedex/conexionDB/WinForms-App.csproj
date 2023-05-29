@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D07FBFA9-6743-449B-B3CC-CF9DCC34EFAF}</ProjectGuid>
+    <ProjectGuid>{5AE60630-D0F1-4496-B615-C0B7D57A4D55}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>conexionaDBejercicio2</RootNamespace>
-    <AssemblyName>conexionaDBejercicio2</AssemblyName>
+    <RootNamespace>conexionDB</RootNamespace>
+    <AssemblyName>conexionDB</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -81,11 +81,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dominio\Dominio.csproj">
-      <Project>{a74361ce-397b-40d2-8ef8-1d3ac9c1e03b}</Project>
+      <Project>{62957674-4061-4681-a2a8-ec66c6d73c77}</Project>
       <Name>Dominio</Name>
     </ProjectReference>
     <ProjectReference Include="..\Negocio\Negocio.csproj">
-      <Project>{2d035430-dc21-4e01-a574-2641a54e594e}</Project>
+      <Project>{a9477846-d341-4931-85fd-17681c51c196}</Project>
       <Name>Negocio</Name>
     </ProjectReference>
   </ItemGroup>

@@ -7,6 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Dominio;
+using Negocio;
+
 
 namespace conexionDB
 {
@@ -21,6 +24,29 @@ namespace conexionDB
         {
             PokemonDatos poke = new PokemonDatos();
             dgvPokedex.DataSource = poke.obtenerListaPokemon();
+            dgvPokedex.Columns["urlImagen"].Visible = false;
+            mostrarImagen("https://www.gamespot.com/a/uploads/scale_medium/1601/16018044/3968710-pokedex-run.jpg");
+        }
+
+        private void dgvPokedex_SelectionChanged(object sender, EventArgs e)
+        {
+            Pokemon pokemonActual = (Pokemon)dgvPokedex.CurrentRow.DataBoundItem;
+            mostrarImagen(pokemonActual.urlImagen);
+        }
+
+        public void mostrarImagen(string url)
+        {
+            try
+            {
+                pbxPokemon.Load(url);
+
+            }
+            catch (Exception)
+            {
+                pbxPokemon.Load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKAz4Q_iTunY8wXCG123QkN8DDBr1Pl7xALVwdwE4wtGLjH2gWSbG9A4iK7MF6NOKnP4g&usqp=CAU");
+                
+            }
+
         }
     }
 }

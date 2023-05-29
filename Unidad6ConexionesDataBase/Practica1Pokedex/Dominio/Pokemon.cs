@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace conexionDB
+namespace Dominio
 {
-    internal class Pokemon
+    public class Pokemon
     {
         public int numero { get; set; }
 
@@ -15,5 +15,6 @@ namespace conexionDB
         public string descripcion { get; set; }
 
         public string tipo { get; set; }
+        public string urlImagen { get; set; }
     }
 }

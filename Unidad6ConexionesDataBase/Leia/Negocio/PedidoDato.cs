@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Globalization;
+using Dominio;
 
-namespace AppFabricaDeCalzadoFemenino
+namespace Negocio
 {
-    internal class PedidoDato
+    public class PedidoDato
     {
         public List<Pedido> listar()
         {

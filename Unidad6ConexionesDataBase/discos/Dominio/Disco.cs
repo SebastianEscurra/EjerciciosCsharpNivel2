@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace conexionaDBejercicio2
+namespace Dominio
 {
-    internal class Disco
+     public class Disco
     {
         public string titulo { get; set; }
         public int cantidadDeCanciones { get; set; }
