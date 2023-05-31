@@ -22,7 +22,7 @@ namespace conexionaDBejercicio2
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            DiscoDatos listado = new DiscoDatos();
+            DiscoNegocio listado = new DiscoNegocio();
 
             listaDiscos = listado.listar();
             dgvListaDiscos.DataSource = listaDiscos;
@@ -51,6 +51,12 @@ namespace conexionaDBejercicio2
             Disco discoSeleccionado = (Disco) dgvListaDiscos.CurrentRow.DataBoundItem;
             cargarImagen(discoSeleccionado.UrlImagen);
 
+        }
+
+        private void btnAgregarDisco_Click(object sender, EventArgs e)
+        {
+            frmAgregarDisco nuevaVentana = new frmAgregarDisco();
+            nuevaVentana.ShowDialog();
         }
     }
 }

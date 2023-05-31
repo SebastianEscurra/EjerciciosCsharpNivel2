@@ -8,7 +8,7 @@ using Dominio;
 
 namespace Negocio
 {
-    public class DiscoDatos
+    public class DiscoNegocio
     {
         public List<Disco> listar()
         {
@@ -45,6 +45,34 @@ namespace Negocio
                 datos.cerrarConexion();
             }
             
+        }
+        public void agregar(Disco nuevo)
+        {
+            AccesoDatos dato = new AccesoDatos();
+
+            try
+            {
+                dato.setearConsulta("insert into DISCOS(Titulo,CantidadCanciones,FechaLanzamiento,IdEstilo) values ('"+nuevo.titulo+"',"+nuevo.cantidadDeCanciones+",'"+nuevo.fechaDeLanzamiento+"',"+nuevo.estilo.id+")");
+                dato.ejecutarAccion();   
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                dato.cerrarConexion();
+            }
+        }
+        public void eliminar()
+        {
+
+        }
+        public void modificar()
+        {
+
         }
     }
 }

@@ -21,8 +21,6 @@ namespace Negocio
         public AccesoDatos ()
         {
             conexion = new SqlConnection("server= .\\SQLexpress;database=DISCOS_DB;integrated security=true;");
-            
-
             comando = new SqlCommand();
         }
 
@@ -32,6 +30,29 @@ namespace Negocio
             comando.CommandText = consulta;
         }
 
+
+        public void cerrarConexion()
+        {
+            if (lector != null)
+                lector.Close();
+
+            conexion.Close();
+        }
+
+        public void ejecutarAccion()
+        {
+            comando.Connection = conexion;
+            try
+            {
+                conexion.Open();
+                comando.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+        }
         public void ejecutarLectura()
         {
             comando.Connection = conexion;
@@ -45,19 +66,6 @@ namespace Negocio
             {
                 throw ex;
             }
-        }
-
-        public void cerrarConexion()
-        {
-            if (lector != null)
-                lector.Close();
-
-            conexion.Close();
-        }
-
-        public void insertarNuevo()
-        {
-            
         }
     }
 }
