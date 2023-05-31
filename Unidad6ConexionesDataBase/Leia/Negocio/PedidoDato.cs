@@ -14,36 +14,28 @@ namespace Negocio
         public List<Pedido> listar()
         {
             List<Pedido> pedidos = new List<Pedido>();
-            SqlConnection conexion = new SqlConnection();
-            SqlCommand comando = new SqlCommand();
-            SqlDataReader lector;
+            AccesoDatos dato=new AccesoDatos();
 
             try
             {
-                conexion.ConnectionString = "server=.\\SQLexpress;database=FABRICA_ZAPATOS_DB;integrated security=true;";
-                comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = "select pe.Cantidad Cantidad,pr.Precio PrecioUnitario,pe.Precio Precio,pe.FechaPedido FechaPedido,pe.FechaLimiteEntrega FechaLimiteEntrega,pe.Estado Estado,pr.URLimagen URLimagen, c.Nombre NombreCliente,pr.Nombre TipoDeZapato from Cliente c,Producto pr,Pedidos pe where pe.Id_Cliente=c.Id and pe.Id_Producto=pr.Id";
-                comando.Connection = conexion;
+                dato.setearConsulta("select pe.Cantidad Cantidad,pr.Precio PrecioUnitario,pe.Precio Precio,pe.FechaPedido FechaPedido,pe.FechaLimiteEntrega FechaLimiteEntrega,pe.Estado Estado,pr.URLimagen URLimagen, c.Nombre NombreCliente,pr.Nombre TipoDeZapato from Cliente c,Producto pr,Pedidos pe where pe.Id_Cliente=c.Id and pe.Id_Producto=pr.Id");
+                dato.ejecutarLectura();
 
-                conexion.Open();
-
-                lector = comando.ExecuteReader();
-
-                while (lector.Read())
+                while (dato.Lector.Read())
                 {
                     Pedido aux = new Pedido();
-                    aux.cantidad = (int)lector["Cantidad"];
-                    aux.presupuesto = (double)lector["Precio"];
-                    aux.fechaDePedido = (DateTime)lector["FechaPedido"];
-                    aux.fechaDeEntrega = (DateTime)lector["FechaLimiteEntrega"];
+                    aux.cantidad = (int)dato.Lector["Cantidad"];
+                    aux.presupuesto = (double)dato.Lector["Precio"];
+                    aux.fechaDePedido = (DateTime)dato.Lector["FechaPedido"];
+                    aux.fechaDeEntrega = (DateTime)dato.Lector["FechaLimiteEntrega"];
                     aux.cliente = new Cliente();
-                    aux.cliente.nombre = (string)lector["NombreCliente"];
+                    aux.cliente.nombre = (string)dato.Lector["NombreCliente"];
                     aux.tipoDeCalzado = new Producto();
-                    aux.tipoDeCalzado.nombre = (string)lector["TipoDeZapato"];
-                    aux.estado = (string)lector["Estado"];
-                    aux.tipoDeCalzado.precio = (double)lector["PrecioUnitario"];
+                    aux.tipoDeCalzado.nombre = (string)dato.Lector["TipoDeZapato"];
+                    aux.estado = (string)dato.Lector["Estado"];
+                    aux.tipoDeCalzado.precio = (double)dato.Lector["PrecioUnitario"];
                     aux.presupuesto = aux.cantidad * aux.tipoDeCalzado.precio;
-                    aux.tipoDeCalzado.UrlImagen = (string)lector["URLimagen"];
+                    aux.tipoDeCalzado.UrlImagen = (string)dato.Lector["URLimagen"];
                     aux.presupuestoFinal = aux.presupuesto.ToString("C0",CultureInfo.GetCultureInfo("es-AR"));
 
                  
@@ -58,7 +50,7 @@ namespace Negocio
             }
             finally
             {
-                conexion.Close();
+                dato.cerrarConexion();
             }
             
         }

@@ -12,43 +12,37 @@ namespace Negocio
     {
         public List<Disco> listar()
         {
-            List<Disco> discos = new List<Disco>();
-
-            SqlConnection conexion = new SqlConnection();
-            SqlCommand comando = new SqlCommand();
-            SqlDataReader lector;
+            List<Disco> listaDisco= new List<Disco>();
+            AccesoDatos datos= new AccesoDatos();
 
             try
             {
-                conexion.ConnectionString = "server= .\\SQLexpress;database=DISCOS_DB;integrated security=true;";
-                comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = "select d.Titulo,d.CantidadCanciones,d.FechaLanzamiento,e.Descripcion Estilo,d.UrlImagenTapa  from DISCOS d , ESTILOS e where d.IdEstilo=e.Id";
-                comando.Connection = conexion;
+                datos.setearConsulta("select d.Titulo Titulo,d.CantidadCanciones CantidadCanciones,d.FechaLanzamiento FechaLanzamiento,e.Descripcion Descripcion,d.UrlImagenTapa UrlImagenTapa from DISCOS d,ESTILOS e where d.IdEstilo=e.Id");
+                datos.ejecutarLectura();
 
-                conexion.Open();
-
-                lector = comando.ExecuteReader();
-
-                while (lector.Read())
+                while (datos.Lector.Read())
                 {
                     Disco aux = new Disco();
 
-                    aux.titulo = (string)lector["Titulo"];
-                    aux.cantidadDeCanciones = (int)lector["CantidadCanciones"];
-                    aux.fechaDeLanzamiento = (DateTime)lector["FechaLanzamiento"];
+                    aux.titulo = (string)datos.Lector["Titulo"];
+                    aux.cantidadDeCanciones = (int)datos.Lector["CantidadCanciones"];
+                    aux.fechaDeLanzamiento = (DateTime)datos.Lector["FechaLanzamiento"];
                     aux.estilo = new Estilo();
-                    aux.estilo.descripcion = (string)lector["Estilo"];
-                    aux.UrlImagen = (string)lector["UrlImagenTapa"];
-                    discos.Add(aux);
+                    aux.estilo.descripcion = (string)datos.Lector["Descripcion"];
+                    aux.UrlImagen = (string)datos.Lector["UrlImagenTapa"];
+                    listaDisco.Add(aux);
                 }
-                conexion.Close();
 
-                return discos;
+                return listaDisco;
             }
             catch (Exception ex)
             {
 
                 throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
             }
             
         }

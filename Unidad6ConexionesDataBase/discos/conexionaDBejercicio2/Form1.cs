@@ -23,10 +23,11 @@ namespace conexionaDBejercicio2
         private void Form1_Load(object sender, EventArgs e)
         {
             DiscoDatos listado = new DiscoDatos();
+
             listaDiscos = listado.listar();
             dgvListaDiscos.DataSource = listaDiscos;
             dgvListaDiscos.Columns["UrlImagen"].Visible = false;
-            pbxpokemons.Load("https://img.freepik.com/vector-gratis/tocadiscos-vinilo_1284-52273.jpg");
+            pbxDiscos.Load("https://img.freepik.com/vector-gratis/tocadiscos-vinilo_1284-52273.jpg");
         }
 
        
@@ -35,13 +36,13 @@ namespace conexionaDBejercicio2
 
             try
             {
-                pbxpokemons.Load(imagen);
+                pbxDiscos.Load(imagen);
 
             }
             catch (Exception)
             {
 
-                pbxpokemons.Load("https://img.freepik.com/iconos-gratis/imagen_318-150777.jpg");
+                pbxDiscos.Load("https://img.freepik.com/iconos-gratis/imagen_318-150777.jpg");
             }
         }
 

@@ -8,7 +8,7 @@ using Dominio;
 
 namespace Negocio
 {
-    public class PokemonDatos
+    public class PokemonNegocio
     {
         public List<Pokemon> obtenerListaPokemon()
         {
@@ -37,7 +37,8 @@ namespace Negocio
                     aux.nombre = (string)lector["Nombre"];
                     aux.numero = (int)lector["Numero"];
                     aux.descripcion = (string)lector["Descripcion"];
-                    aux.tipo = lector.GetString(3);
+                    aux.tipo = new Elemento();
+                    aux.tipo.descripcion = lector.GetString(3);
                     aux.urlImagen = (string)lector["url"];
 
                     pokemons.Add(aux);
@@ -50,6 +51,27 @@ namespace Negocio
 
                 throw ex;
             }
+        }
+        public void insertar(Pokemon pokemonNuevo)
+        {
+            AccesoDatos dato = new AccesoDatos();
+
+            try
+            {
+                dato.setearConsultaDB("insert into POKEMONS(Numero,Nombre,Descripcion,IdTipo, Activo) values (" +pokemonNuevo.numero+ ",'"+pokemonNuevo.nombre+"','"+pokemonNuevo.descripcion+"',"+pokemonNuevo.tipo.id+",1)");
+                dato.ejecutarAccion();
+            }
+            catch (Exception ex)    
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                dato.cerrarConexion();
+            }
+             
+
         }
     }
 }

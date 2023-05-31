@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.dgvListaDiscos = new System.Windows.Forms.DataGridView();
-            this.pbxpokemons = new System.Windows.Forms.PictureBox();
+            this.pbxDiscos = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvListaDiscos)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxpokemons)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxDiscos)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvListaDiscos
@@ -47,27 +47,27 @@
             this.dgvListaDiscos.TabIndex = 0;
             this.dgvListaDiscos.SelectionChanged += new System.EventHandler(this.dgvListaDiscos_SelectionChanged);
             // 
-            // pbxpokemons
+            // pbxDiscos
             // 
-            this.pbxpokemons.Location = new System.Drawing.Point(518, 100);
-            this.pbxpokemons.Name = "pbxpokemons";
-            this.pbxpokemons.Size = new System.Drawing.Size(219, 172);
-            this.pbxpokemons.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pbxpokemons.TabIndex = 1;
-            this.pbxpokemons.TabStop = false;
+            this.pbxDiscos.Location = new System.Drawing.Point(518, 100);
+            this.pbxDiscos.Name = "pbxDiscos";
+            this.pbxDiscos.Size = new System.Drawing.Size(219, 172);
+            this.pbxDiscos.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbxDiscos.TabIndex = 1;
+            this.pbxDiscos.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.pbxpokemons);
+            this.Controls.Add(this.pbxDiscos);
             this.Controls.Add(this.dgvListaDiscos);
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvListaDiscos)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pbxpokemons)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxDiscos)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -75,7 +75,7 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvListaDiscos;
-        private System.Windows.Forms.PictureBox pbxpokemons;
+        private System.Windows.Forms.PictureBox pbxDiscos;
     }
 }
 

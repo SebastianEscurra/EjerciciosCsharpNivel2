@@ -22,10 +22,11 @@ namespace conexionDB
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            PokemonDatos poke = new PokemonDatos();
-            dgvPokedex.DataSource = poke.obtenerListaPokemon();
+            PokemonNegocio pokemons = new PokemonNegocio();
+            dgvPokedex.DataSource = pokemons.obtenerListaPokemon();
             dgvPokedex.Columns["urlImagen"].Visible = false;
             mostrarImagen("https://www.gamespot.com/a/uploads/scale_medium/1601/16018044/3968710-pokedex-run.jpg");
+            
         }
 
         private void dgvPokedex_SelectionChanged(object sender, EventArgs e)
@@ -47,6 +48,12 @@ namespace conexionDB
                 
             }
 
+        }
+
+        private void btnAgregarPokemon_Click(object sender, EventArgs e)
+        {
+            frmAgregarPokemon ventanaAgregarPokemon = new frmAgregarPokemon();
+            ventanaAgregarPokemon.ShowDialog();
         }
     }
 }
