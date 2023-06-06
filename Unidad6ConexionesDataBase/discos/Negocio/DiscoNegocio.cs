@@ -29,7 +29,9 @@ namespace Negocio
                     aux.fechaDeLanzamiento = (DateTime)datos.Lector["FechaLanzamiento"];
                     aux.estilo = new Estilo();
                     aux.estilo.descripcion = (string)datos.Lector["Descripcion"];
-                    aux.UrlImagen = (string)datos.Lector["UrlImagenTapa"];
+                    if (!(datos.Lector["UrlImagenTapa"] is DBNull))
+                        aux.UrlImagen = (string)datos.Lector["UrlImagenTapa"];
+
                     listaDisco.Add(aux);
                 }
 
@@ -52,7 +54,14 @@ namespace Negocio
 
             try
             {
-                dato.setearConsulta("insert into DISCOS(Titulo,CantidadCanciones,FechaLanzamiento,IdEstilo) values ('"+nuevo.titulo+"',"+nuevo.cantidadDeCanciones+",'"+nuevo.fechaDeLanzamiento+"',"+nuevo.estilo.id+")");
+                dato.setearConsulta("insert into DISCOS(Titulo,CantidadCanciones,FechaLanzamiento,IdEstilo,UrlImagenTapa) values (@titulo,@cantidadCanciones,@fechaLanzamiento,@idEstilo,@url)");
+                
+                dato.parametros("@titulo",nuevo.titulo);
+                dato.parametros("@cantidadCanciones", nuevo.cantidadDeCanciones);
+                dato.parametros("@fechaLanzamiento", nuevo.fechaDeLanzamiento);
+                dato.parametros("@idEstilo", nuevo.estilo.id);
+                dato.parametros("@url", nuevo.UrlImagen);
+
                 dato.ejecutarAccion();   
 
             }

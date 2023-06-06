@@ -41,9 +41,12 @@
             this.dgvListaDiscos.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.dgvListaDiscos.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.RaisedHorizontal;
             this.dgvListaDiscos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvListaDiscos.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvListaDiscos.GridColor = System.Drawing.SystemColors.Highlight;
             this.dgvListaDiscos.Location = new System.Drawing.Point(12, 100);
+            this.dgvListaDiscos.MultiSelect = false;
             this.dgvListaDiscos.Name = "dgvListaDiscos";
+            this.dgvListaDiscos.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvListaDiscos.Size = new System.Drawing.Size(487, 172);
             this.dgvListaDiscos.TabIndex = 0;
             this.dgvListaDiscos.SelectionChanged += new System.EventHandler(this.dgvListaDiscos_SelectionChanged);
@@ -71,7 +74,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(764, 336);
             this.Controls.Add(this.btnAgregarDisco);
             this.Controls.Add(this.pbxDiscos);
             this.Controls.Add(this.dgvListaDiscos);

@@ -22,6 +22,10 @@ namespace conexionaDBejercicio2
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            cargarGrid();
+        }
+         private void cargarGrid()
+        {
             DiscoNegocio listado = new DiscoNegocio();
 
             listaDiscos = listado.listar();
@@ -29,7 +33,6 @@ namespace conexionaDBejercicio2
             dgvListaDiscos.Columns["UrlImagen"].Visible = false;
             pbxDiscos.Load("https://img.freepik.com/vector-gratis/tocadiscos-vinilo_1284-52273.jpg");
         }
-
        
         private void cargarImagen(string imagen)
         {
@@ -56,7 +59,8 @@ namespace conexionaDBejercicio2
         private void btnAgregarDisco_Click(object sender, EventArgs e)
         {
             frmAgregarDisco nuevaVentana = new frmAgregarDisco();
-            nuevaVentana.ShowDialog();
+            nuevaVentana.ShowDialog(); //retiene la ejecucion hasta que se cierre la ventana
+            cargarGrid();
         }
     }
 }

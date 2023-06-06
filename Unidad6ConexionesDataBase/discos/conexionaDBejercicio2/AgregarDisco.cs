@@ -30,11 +30,21 @@ namespace conexionaDBejercicio2
 
             try
             {
+                Estilo estiloActual = new Estilo();
+                EstiloNegocio datoEstilo = new EstiloNegocio();
+
+                foreach (var item in datoEstilo.listar())
+                {
+                    if (item.descripcion == cmbEstilo.Text)
+                        estiloActual = item;
+                }
+                
                 discoNuevo.titulo = tbxTitulo.Text;
                 discoNuevo.cantidadDeCanciones = int.Parse(tbxCantidad.Text);
-                discoNuevo.fechaDeLanzamiento = DateTime.Parse(tbxFecha.Text);
-                discoNuevo.estilo = new Estilo();
-                discoNuevo.estilo.id = int.Parse(tbxEstilo.Text);
+                discoNuevo.fechaDeLanzamiento = dtpFechaLanzamiento.Value.Date;
+                discoNuevo.estilo = estiloActual;
+                discoNuevo.UrlImagen = tbxUrl.Text;
+               
             
                 DiscoNegocio negocio = new DiscoNegocio();
                 negocio.agregar(discoNuevo);
@@ -45,6 +55,28 @@ namespace conexionaDBejercicio2
             {
 
                 MessageBox.Show(ex.ToString());
+            }
+        }
+
+        private void frmAgregarDisco_Load(object sender, EventArgs e)
+        {
+            EstiloNegocio datoEstilo = new EstiloNegocio();
+            cmbEstilo.DataSource = datoEstilo.listar();
+        }
+
+        private void tbxUrl_Leave(object sender, EventArgs e)
+        {
+            cargarImagen(tbxUrl.Text);
+        }
+        private void cargarImagen(string imagen)
+        {
+            try
+            {
+                pbxDisco.Load(imagen);
+            }
+            catch (Exception)
+            {
+                pbxDisco.Load("https://img.freepik.com/iconos-gratis/imagen_318-150777.jpg");
             }
         }
     }
