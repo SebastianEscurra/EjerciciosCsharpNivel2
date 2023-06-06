@@ -43,7 +43,7 @@ namespace Negocio
                     aux.debilidad = new Elemento();
                     aux.debilidad.id = (int)lector["IdDebilidad"];
                     aux.debilidad.descripcion = (string)lector["Debilidad"];
-                    if (!(lector["url"] is DBNull)) // si no es null la celda en la que esta la lee, so no no lo hace
+                    if (!(lector["url"] is DBNull)) // leer si NO es null la celda en la que esta.
                         aux.urlImagen = (string)lector["url"];
 
                     pokemons.Add(aux);
@@ -63,8 +63,9 @@ namespace Negocio
 
             try
             {
-                dato.setearConsultaDB("insert into POKEMONS(Numero,Nombre,Descripcion,IdTipo,IdDebilidad, Activo) values (" +pokemonNuevo.numero+ ",'"+pokemonNuevo.nombre+"','"+pokemonNuevo.descripcion+"',"+pokemonNuevo.tipo.id+",@debilidad,1)");
+                dato.setearConsultaDB("insert into POKEMONS(Numero,Nombre,Descripcion,IdTipo,IdDebilidad, Activo, UrlImagen ) values (" + pokemonNuevo.numero+ ",'"+pokemonNuevo.nombre+"','"+pokemonNuevo.descripcion+"',"+pokemonNuevo.tipo.id+",@debilidad,1,@url)");
                 dato.ingresarParametros("@debilidad",pokemonNuevo.debilidad.id);
+                dato.ingresarParametros("@url", pokemonNuevo.urlImagen);
                 dato.ejecutarAccion();
             }
             catch (Exception ex)    

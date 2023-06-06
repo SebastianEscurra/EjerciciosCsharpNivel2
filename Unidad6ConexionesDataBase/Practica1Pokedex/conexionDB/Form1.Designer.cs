@@ -51,7 +51,7 @@
             // 
             this.pbxPokemon.Location = new System.Drawing.Point(548, 62);
             this.pbxPokemon.Name = "pbxPokemon";
-            this.pbxPokemon.Size = new System.Drawing.Size(169, 150);
+            this.pbxPokemon.Size = new System.Drawing.Size(160, 150);
             this.pbxPokemon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbxPokemon.TabIndex = 1;
             this.pbxPokemon.TabStop = false;

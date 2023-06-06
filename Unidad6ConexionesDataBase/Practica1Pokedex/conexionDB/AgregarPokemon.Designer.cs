@@ -40,6 +40,10 @@
             this.cboTipo = new System.Windows.Forms.ComboBox();
             this.cboDebilidad = new System.Windows.Forms.ComboBox();
             this.lblDebilidad = new System.Windows.Forms.Label();
+            this.pbxPokemon = new System.Windows.Forms.PictureBox();
+            this.lblUrl = new System.Windows.Forms.Label();
+            this.tbxUrl = new System.Windows.Forms.TextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pbxPokemon)).BeginInit();
             this.SuspendLayout();
             // 
             // lblNumero
@@ -147,11 +151,40 @@
             this.lblDebilidad.TabIndex = 14;
             this.lblDebilidad.Text = "Debilidad:";
             // 
+            // pbxPokemon
+            // 
+            this.pbxPokemon.Location = new System.Drawing.Point(272, 64);
+            this.pbxPokemon.Name = "pbxPokemon";
+            this.pbxPokemon.Size = new System.Drawing.Size(147, 136);
+            this.pbxPokemon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pbxPokemon.TabIndex = 15;
+            this.pbxPokemon.TabStop = false;
+            // 
+            // lblUrl
+            // 
+            this.lblUrl.AutoSize = true;
+            this.lblUrl.Location = new System.Drawing.Point(32, 127);
+            this.lblUrl.Name = "lblUrl";
+            this.lblUrl.Size = new System.Drawing.Size(23, 13);
+            this.lblUrl.TabIndex = 16;
+            this.lblUrl.Text = "Url:";
+            // 
+            // tbxUrl
+            // 
+            this.tbxUrl.Location = new System.Drawing.Point(104, 124);
+            this.tbxUrl.Name = "tbxUrl";
+            this.tbxUrl.Size = new System.Drawing.Size(121, 20);
+            this.tbxUrl.TabIndex = 17;
+            this.tbxUrl.Leave += new System.EventHandler(this.tbxUrl_Leave);
+            // 
             // frmAgregarPokemon
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(369, 292);
+            this.ClientSize = new System.Drawing.Size(441, 274);
+            this.Controls.Add(this.tbxUrl);
+            this.Controls.Add(this.lblUrl);
+            this.Controls.Add(this.pbxPokemon);
             this.Controls.Add(this.lblDebilidad);
             this.Controls.Add(this.cboDebilidad);
             this.Controls.Add(this.cboTipo);
@@ -167,6 +200,7 @@
             this.Name = "frmAgregarPokemon";
             this.Text = "AgregarPokemon";
             this.Load += new System.EventHandler(this.frmAgregarPokemon_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pbxPokemon)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -186,5 +220,8 @@
         private System.Windows.Forms.ComboBox cboTipo;
         private System.Windows.Forms.ComboBox cboDebilidad;
         private System.Windows.Forms.Label lblDebilidad;
+        private System.Windows.Forms.PictureBox pbxPokemon;
+        private System.Windows.Forms.Label lblUrl;
+        private System.Windows.Forms.TextBox tbxUrl;
     }
 }

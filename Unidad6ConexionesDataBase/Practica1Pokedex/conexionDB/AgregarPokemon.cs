@@ -33,16 +33,12 @@ namespace conexionDB
                 pokemonnuevo.nombre = tbxNombre.Text;
                 pokemonnuevo.descripcion = tbxDescripcion.Text;
                 pokemonnuevo.tipo = (Elemento)cboTipo.SelectedItem;
-                pokemonnuevo.debilidad = (Elemento)cboDebilidad.SelectedItem; 
-               
-                
-                
+                pokemonnuevo.debilidad = (Elemento)cboDebilidad.SelectedItem;
+                pokemonnuevo.urlImagen = tbxUrl.Text;
+   
                 PokemonNegocio pokemonDato = new PokemonNegocio();
                 pokemonDato.agregar(pokemonnuevo);
                 MessageBox.Show("agregado exitosamente");
-
-
-
             }
             catch (Exception ex)
             {
@@ -70,6 +66,24 @@ namespace conexionDB
             
             cboTipo.DataSource = negocio.listar();
             cboDebilidad.DataSource = negocio.listar();
+        }
+
+        private void tbxUrl_Leave(object sender, EventArgs e)
+        {
+            mostraImagen(tbxUrl.Text);
+        }
+
+        public void mostraImagen(string url)
+        {
+            try
+            {
+                pbxPokemon.Load(url);
+            }
+            catch (Exception)
+            {
+
+                pbxPokemon.Load("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKAz4Q_iTunY8wXCG123QkN8DDBr1Pl7xALVwdwE4wtGLjH2gWSbG9A4iK7MF6NOKnP4g&usqp=CAU");
+            }
         }
     }
 }
