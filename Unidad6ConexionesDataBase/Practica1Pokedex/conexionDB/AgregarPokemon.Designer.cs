@@ -72,7 +72,7 @@
             // lbltipo
             // 
             this.lbltipo.AutoSize = true;
-            this.lbltipo.Location = new System.Drawing.Point(65, 135);
+            this.lbltipo.Location = new System.Drawing.Point(65, 159);
             this.lbltipo.Name = "lbltipo";
             this.lbltipo.Size = new System.Drawing.Size(31, 13);
             this.lbltipo.TabIndex = 3;
@@ -124,7 +124,7 @@
             // 
             this.cboTipo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboTipo.FormattingEnabled = true;
-            this.cboTipo.Location = new System.Drawing.Point(104, 127);
+            this.cboTipo.Location = new System.Drawing.Point(104, 151);
             this.cboTipo.Name = "cboTipo";
             this.cboTipo.Size = new System.Drawing.Size(121, 21);
             this.cboTipo.TabIndex = 12;
@@ -133,7 +133,7 @@
             // 
             this.cboDebilidad.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cboDebilidad.FormattingEnabled = true;
-            this.cboDebilidad.Location = new System.Drawing.Point(104, 162);
+            this.cboDebilidad.Location = new System.Drawing.Point(104, 186);
             this.cboDebilidad.Name = "cboDebilidad";
             this.cboDebilidad.Size = new System.Drawing.Size(121, 21);
             this.cboDebilidad.TabIndex = 13;
@@ -141,7 +141,7 @@
             // lblDebilidad
             // 
             this.lblDebilidad.AutoSize = true;
-            this.lblDebilidad.Location = new System.Drawing.Point(44, 170);
+            this.lblDebilidad.Location = new System.Drawing.Point(44, 194);
             this.lblDebilidad.Name = "lblDebilidad";
             this.lblDebilidad.Size = new System.Drawing.Size(54, 13);
             this.lblDebilidad.TabIndex = 14;
@@ -151,7 +151,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(297, 292);
+            this.ClientSize = new System.Drawing.Size(369, 292);
             this.Controls.Add(this.lblDebilidad);
             this.Controls.Add(this.cboDebilidad);
             this.Controls.Add(this.cboTipo);

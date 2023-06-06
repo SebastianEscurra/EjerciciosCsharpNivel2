@@ -22,13 +22,15 @@ namespace conexionDB
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            cargarGrilla();
+        }
+        private void cargarGrilla()
+        {
             PokemonNegocio pokemons = new PokemonNegocio();
             dgvPokedex.DataSource = pokemons.obtenerListaPokemon();
             dgvPokedex.Columns["urlImagen"].Visible = false;
             mostrarImagen("https://www.gamespot.com/a/uploads/scale_medium/1601/16018044/3968710-pokedex-run.jpg");
-            
         }
-
         private void dgvPokedex_SelectionChanged(object sender, EventArgs e)
         {
             Pokemon pokemonActual = (Pokemon)dgvPokedex.CurrentRow.DataBoundItem;
@@ -53,7 +55,8 @@ namespace conexionDB
         private void btnAgregarPokemon_Click(object sender, EventArgs e)
         {
             frmAgregarPokemon ventanaAgregarPokemon = new frmAgregarPokemon();
-            ventanaAgregarPokemon.ShowDialog();
+            ventanaAgregarPokemon.ShowDialog();// detiene la lectura lineal, continua cuando cierra
+            cargarGrilla();
         }
     }
 }

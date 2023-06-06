@@ -44,7 +44,7 @@ namespace Negocio
                     aux.debilidad.id = (int)lector["IdDebilidad"];
                     aux.debilidad.descripcion = (string)lector["Debilidad"];
                     if (!(lector["url"] is DBNull)) // si no es null la celda en la que esta la lee, so no no lo hace
-                        aux.urlImagen = (string)lector["url"];.
+                        aux.urlImagen = (string)lector["url"];
 
                     pokemons.Add(aux);
                 }
