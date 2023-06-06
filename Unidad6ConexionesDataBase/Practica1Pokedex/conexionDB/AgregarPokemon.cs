@@ -32,12 +32,13 @@ namespace conexionDB
                 pokemonnuevo.numero = int.Parse(tbxNumero.Text);
                 pokemonnuevo.nombre = tbxNombre.Text;
                 pokemonnuevo.descripcion = tbxDescripcion.Text;
-                pokemonnuevo.tipo = new Elemento();
-                pokemonnuevo.tipo.id = int.Parse(tbxTipo.Text);
+                pokemonnuevo.tipo = (Elemento)cboTipo.SelectedItem;
+                pokemonnuevo.debilidad = (Elemento)cboDebilidad.SelectedItem; 
+               
                 
                 
                 PokemonNegocio pokemonDato = new PokemonNegocio();
-                pokemonDato.insertar(pokemonnuevo);
+                pokemonDato.agregar(pokemonnuevo);
                 MessageBox.Show("agregado exitosamente");
 
 
@@ -61,6 +62,14 @@ namespace conexionDB
         {
             if ((e.KeyChar<49 || e.KeyChar>51) && e.KeyChar!=8)
                     e.Handled = true;
+        }
+
+        private void frmAgregarPokemon_Load(object sender, EventArgs e)
+        {
+            ElementoNegocio negocio = new ElementoNegocio();
+            
+            cboTipo.DataSource = negocio.listar();
+            cboDebilidad.DataSource = negocio.listar();
         }
     }
 }

@@ -15,6 +15,7 @@ namespace Dominio
         public string descripcion { get; set; }
 
         public Elemento tipo { get; set; }
+        public Elemento debilidad { get; set; }
         public string urlImagen { get; set; }
     }
 }

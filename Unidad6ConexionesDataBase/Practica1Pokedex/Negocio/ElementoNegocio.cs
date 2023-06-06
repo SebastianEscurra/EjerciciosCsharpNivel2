@@ -23,8 +23,10 @@ namespace Negocio
 				while (dato._lector.Read())
 				{
 					Elemento aux = new Elemento();
+
 					aux.id = (int)dato._lector["Id"];
 					aux.descripcion = (string)dato._lector["Descripcion"];
+
 					listaElementos.Add(aux);
 				}
 

@@ -24,7 +24,7 @@ namespace Negocio
             {
                 conexion.ConnectionString = "server= (local)\\SQLexpress;database=POKEDEX_DB;integrated security=true;";
                 comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = "select p.Numero,p.Nombre,p.Descripcion,e.Descripcion Tipo,p.UrlImagen url from POKEMONS p, ELEMENTOS e where p.IdTipo=e.Id";
+                comando.CommandText = "select p.Numero,p.Nombre,p.Descripcion,e.Id IdTipo,e.Descripcion Tipo,d.Id IdDebilidad,d.Descripcion Debilidad,p.UrlImagen url from POKEMONS p, ELEMENTOS e,ELEMENTOS d where e.Id=p.IdTipo and d.Id=p.IdDebilidad\r\n";
                 comando.Connection = conexion;
 
                 conexion.Open();
@@ -38,8 +38,13 @@ namespace Negocio
                     aux.numero = (int)lector["Numero"];
                     aux.descripcion = (string)lector["Descripcion"];
                     aux.tipo = new Elemento();
-                    aux.tipo.descripcion = lector.GetString(3);
-                    aux.urlImagen = (string)lector["url"];
+                    aux.tipo.id = (int)lector["IdTipo"];
+                    aux.tipo.descripcion = (string)lector["Tipo"];
+                    aux.debilidad = new Elemento();
+                    aux.debilidad.id = (int)lector["IdDebilidad"];
+                    aux.debilidad.descripcion = (string)lector["Debilidad"];
+                    if (!(lector["url"] is DBNull)) // si no es null la celda en la que esta la lee, so no no lo hace
+                        aux.urlImagen = (string)lector["url"];.
 
                     pokemons.Add(aux);
                 }
@@ -52,13 +57,14 @@ namespace Negocio
                 throw ex;
             }
         }
-        public void insertar(Pokemon pokemonNuevo)
+        public void agregar(Pokemon pokemonNuevo)
         {
             AccesoDatos dato = new AccesoDatos();
 
             try
             {
-                dato.setearConsultaDB("insert into POKEMONS(Numero,Nombre,Descripcion,IdTipo, Activo) values (" +pokemonNuevo.numero+ ",'"+pokemonNuevo.nombre+"','"+pokemonNuevo.descripcion+"',"+pokemonNuevo.tipo.id+",1)");
+                dato.setearConsultaDB("insert into POKEMONS(Numero,Nombre,Descripcion,IdTipo,IdDebilidad, Activo) values (" +pokemonNuevo.numero+ ",'"+pokemonNuevo.nombre+"','"+pokemonNuevo.descripcion+"',"+pokemonNuevo.tipo.id+",@debilidad,1)");
+                dato.ingresarParametros("@debilidad",pokemonNuevo.debilidad.id);
                 dato.ejecutarAccion();
             }
             catch (Exception ex)    
