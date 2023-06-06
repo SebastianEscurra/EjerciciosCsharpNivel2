@@ -23,13 +23,13 @@ namespace AppFabricaDeCalzadoFemenino
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            PedidoDato pedidoDato = new PedidoDato();
+            PedidoNegocio pedidoDato = new PedidoNegocio();
             pedidos = new List<Pedido>();
             pedidos = pedidoDato.listar();
             dgvListaPedidos.DataSource = pedidos;
             dgvListaPedidos.Columns[0].Visible = false;
             dgvListaPedidos.Columns[3].Visible = false;
-            dgvListaPedidos.Columns["presupuesto"].Visible = false;
+            
 
 
 
@@ -54,5 +54,12 @@ namespace AppFabricaDeCalzadoFemenino
                 pbxImagenCalzados.Load("https://cdn-icons-png.flaticon.com/512/85/85488.png");
             }
         }
+
+        private void btnAgregarPedido_Click(object sender, EventArgs e)
+        {
+            frmAgregarPedido ventanaAgregar = new frmAgregarPedido();
+            ventanaAgregar.ShowDialog(); // detiene la ejecucion
+        }
+
     }
 }
