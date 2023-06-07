@@ -65,7 +65,7 @@ namespace Negocio
                 lector.Close();
             conexion.Close();
         }
-        public void parametros(string nombre,Object valor )
+        public void setearParametros(string nombre,Object valor )
         {
             comando.Parameters.AddWithValue(nombre, valor);
         }

@@ -15,6 +15,10 @@ namespace AppFabricaDeCalzadoFemenino
 {
     public partial class frmAgregarPedido : Form
     {
+        private ProductoNegocio productoNegocio = new ProductoNegocio();
+        private ClienteNegocio clienteNegocio = new ClienteNegocio();
+        private PedidoNegocio pedidoNegocio = new PedidoNegocio();
+
         public frmAgregarPedido()
         {
             InitializeComponent();
@@ -27,36 +31,19 @@ namespace AppFabricaDeCalzadoFemenino
 
         private void frmAgregarPedido_Load(object sender, EventArgs e)
         {
-            ProductoNegocio datoProducto = new ProductoNegocio();
-            ClienteNegocio datoCliente = new ClienteNegocio();
-
-            cbxTipoDeCalzado.DataSource = datoProducto.listar();
-            cbxCliente.DataSource = datoCliente.listar();
+            cbxTipoDeCalzado.DataSource = productoNegocio.listar();
+            cbxCliente.DataSource = clienteNegocio.listar();
             cbxEstado.Items.Add("Pendiente");
             cbxEstado.Items.Add("Entregado");
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            PedidoNegocio datoPedido = new PedidoNegocio();
             Pedido pedidoNuevo = new Pedido();
-            ClienteNegocio datoCliente = new ClienteNegocio();
-            Cliente clienteActual = new Cliente();
-            ProductoNegocio datoProducto = new ProductoNegocio();
-            Producto productoActual = new Producto();
+            Cliente clienteActual = obtenerElementoActual(clienteNegocio);
+            Producto productoActual = obtenerElementoActual(productoNegocio);
             try
-            {
-                foreach (var item in datoCliente.listar())
-            {
-                if (item.nombre == cbxCliente.Text)
-                    clienteActual = item;
-            }
-                foreach (var item in datoProducto.listar())
-            {
-                if (item.nombre == cbxTipoDeCalzado.Text)
-                    productoActual = item;
-            }
-                            
+            {                          
                 pedidoNuevo.cliente=clienteActual;
                 pedidoNuevo.tipoDeCalzado=productoActual;
                 pedidoNuevo.cantidad = int.Parse(tbxCantidad.Text);
@@ -64,7 +51,7 @@ namespace AppFabricaDeCalzadoFemenino
                 pedidoNuevo.fechaDeEntrega = DateTime.Parse(dtpFechaDeEntrega.Text);
                 pedidoNuevo.estado = cbxEstado.Text;
                 pedidoNuevo.presupuestoFinal = (pedidoNuevo.cantidad * pedidoNuevo.tipoDeCalzado.precio).ToString();
-                datoPedido.agregar(pedidoNuevo);
+                pedidoNegocio.agregar(pedidoNuevo);
 
                 MessageBox.Show("Pedido cargado");
             }
@@ -75,47 +62,56 @@ namespace AppFabricaDeCalzadoFemenino
             }
             
         }
-
-        private void tbxCantidad_TextChanged(object sender, EventArgs e)
+        
+        private void tbxCantidad_TextChanged(object sender, EventArgs e) 
         {
-            //cargamos el resultado de cantidad * precio del producto seleccionado
-            ProductoNegocio producto = new ProductoNegocio();
-            foreach (var item in producto.listar())
-            {
-                if (item.nombre == cbxTipoDeCalzado.Text)
+            //cargamos el PRESUPUESTO FINAL teniendo de referencia la cantidad que ingresa
+
+            Producto productoActual = obtenerElementoActual(productoNegocio);
+
                     try
                     {
-                    lblPresupuestoFinalDato.Text= (item.precio * int.Parse(tbxCantidad.Text)).ToString("C0", CultureInfo.GetCultureInfo("es-AR"));
-
+                        lblPresupuestoFinalDato.Text= (productoActual.precio * int.Parse(tbxCantidad.Text)).ToString("C0", CultureInfo.GetCultureInfo("es-AR"));
                     }
                     catch (Exception)
                     {
-
-                        lblPresupuestoFinalDato.Text="";
+                        lblPresupuestoFinalDato.Text=""; // si el usuario vacia tbxcantidad muestra el label vacio
                     }
-
-            }
         }
 
         private void cbxTipoDeCalzado_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //cargamos el resultado de cantidad * precio del producto seleccionado
-            ProductoNegocio producto = new ProductoNegocio();
-            foreach (var item in producto.listar())
-            {
-                if (item.nombre == cbxTipoDeCalzado.Text)
+            //cargamos el PRESUPUESTO FINAL teniendo de referencia el calzado que selecciona
+            Producto productoActual = obtenerElementoActual(productoNegocio);
+            
                     try
                     {
-                        lblPresupuestoFinalDato.Text = (item.precio * int.Parse(tbxCantidad.Text)).ToString("C0", CultureInfo.GetCultureInfo("es-AR"));
-
+                        lblPresupuestoFinalDato.Text = (productoActual.precio * int.Parse(tbxCantidad.Text)).ToString("C0", CultureInfo.GetCultureInfo("es-AR"));
                     }
                     catch (Exception)
                     {
-
-                        lblPresupuestoFinalDato.Text = "";
+                        lblPresupuestoFinalDato.Text = ""; // si el usuario no seleccciono un calzado muestra el label vacio
                     }
-
+        }
+        private Producto obtenerElementoActual(ProductoNegocio productoNegocio)
+        {
+            Producto productoActual = new Producto();
+            foreach (var item in productoNegocio.listar())
+            {
+                if (item.nombre == cbxTipoDeCalzado.Text)
+                    productoActual = item;
             }
+            return productoActual;
+        }
+        private Cliente obtenerElementoActual(ClienteNegocio clienteNegocio)
+        {
+            Cliente clienteActual = new Cliente();
+            foreach (var item in clienteNegocio.listar())
+            {
+                if (item.nombre == cbxCliente.Text)
+                    clienteActual = item;
+            }
+            return clienteActual;
         }
     }
 }

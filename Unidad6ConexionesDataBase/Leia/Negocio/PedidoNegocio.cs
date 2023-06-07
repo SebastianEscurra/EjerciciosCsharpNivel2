@@ -58,21 +58,27 @@ namespace Negocio
         }
         public void agregar(Pedido pedido)
         {
+            //
+            //AL NO TENER CONFIGURADA LA DB DE LA COLUMNA ID CON UN VALOR AUTOMATICO LE ENVIAMOS
+            //UN NUMERO ALEATORIO
+            //
             Random random = new Random();
-            int numeroAleatorio = random.Next(100, 999);
-
+            int numeroAleatorio = random.Next(100, 999); 
+            //
+            //REVISAR COMO CAMBIARLO
+            //
             AccesoDatos datos = new AccesoDatos();
             try
             {
                 datos.setearConsulta("insert into Pedidos(Id,Cantidad,PresupuestoFinal,FechaPedido,FechaLimiteEntrega,Estado,Id_Cliente,Id_Producto) values (@Id,@Cantidad,@PresupuestoFinal,@FechaPedido,@FechaEntrega,@Estado,@IdCliente,@IdProducto)");
-                datos.parametros("@Id",numeroAleatorio);
-                datos.parametros("@Cantidad", pedido.cantidad);
-                datos.parametros("@PresupuestoFinal", pedido.presupuestoFinal);
-                datos.parametros("@FechaPedido", pedido.fechaDePedido);
-                datos.parametros("@FechaEntrega", pedido.fechaDeEntrega);
-                datos.parametros("@Estado", pedido.estado);
-                datos.parametros("@IdCliente", pedido.cliente.id);
-                datos.parametros("@IdProducto", pedido.tipoDeCalzado.id);
+                datos.setearParametros("@Id",numeroAleatorio);
+                datos.setearParametros("@Cantidad", pedido.cantidad);
+                datos.setearParametros("@PresupuestoFinal", pedido.presupuestoFinal);
+                datos.setearParametros("@FechaPedido", pedido.fechaDePedido);
+                datos.setearParametros("@FechaEntrega", pedido.fechaDeEntrega);
+                datos.setearParametros("@Estado", pedido.estado);
+                datos.setearParametros("@IdCliente", pedido.cliente.id);
+                datos.setearParametros("@IdProducto", pedido.tipoDeCalzado.id);
                 datos.ejecutarAccion();
                 
                 

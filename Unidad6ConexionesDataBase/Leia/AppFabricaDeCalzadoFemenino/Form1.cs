@@ -16,6 +16,9 @@ namespace AppFabricaDeCalzadoFemenino
     public partial class Form1 : Form
     {
         private List<Pedido> pedidos;
+        private PedidoNegocio pedidoNegocio = new PedidoNegocio();
+        private Pedido pedidoActual = new Pedido();
+        
         public Form1()
         {
             InitializeComponent();
@@ -23,23 +26,12 @@ namespace AppFabricaDeCalzadoFemenino
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            PedidoNegocio pedidoDato = new PedidoNegocio();
-            pedidos = new List<Pedido>();
-            pedidos = pedidoDato.listar();
-            dgvListaPedidos.DataSource = pedidos;
-            dgvListaPedidos.Columns[0].Visible = false;
-            dgvListaPedidos.Columns[3].Visible = false;
-            
-
-
-
-
-
+            cargarGrilla();
         }
 
         private void dgvListaPedidos_SelectionChanged(object sender, EventArgs e)
         {
-            Pedido pedidoActual = (Pedido)dgvListaPedidos.CurrentRow.DataBoundItem;
+            pedidoActual = (Pedido)dgvListaPedidos.CurrentRow.DataBoundItem;
             mostrarImagen(pedidoActual.tipoDeCalzado.UrlImagen);
         }
 
@@ -59,7 +51,26 @@ namespace AppFabricaDeCalzadoFemenino
         {
             frmAgregarPedido ventanaAgregar = new frmAgregarPedido();
             ventanaAgregar.ShowDialog(); // detiene la ejecucion
+            cargarGrilla();
         }
 
+        private void cargarGrilla()
+        {
+            pedidos = pedidoNegocio.listar(); //obtiene la lista de pedidos
+            dgvListaPedidos.DataSource = pedidos; //cargamos la lista a la grilla
+            dgvListaPedidos.Columns[0].Visible = false; // ocultamos columnas id y descripcion
+            dgvListaPedidos.Columns[3].Visible = false;
+            pintarFilasSegunEstado();
+        }
+        private void pintarFilasSegunEstado()
+        {
+            for (int i = 0; i < dgvListaPedidos.RowCount; i++)
+            {
+                if (dgvListaPedidos.Rows[i].Cells[8].Value.ToString() == "Entregado")
+                {
+                    dgvListaPedidos.Rows[i].DefaultCellStyle.BackColor = Color.GreenYellow;
+                }
+            }
+        }
     }
 }

@@ -208,7 +208,11 @@
             this.Controls.Add(this.lblCantidad);
             this.Controls.Add(this.lblTIpoDeCalzado);
             this.Controls.Add(this.lblCliente);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.MaximizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(371, 343);
             this.Name = "frmAgregarPedido";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "AgregarPedido";
             this.Load += new System.EventHandler(this.frmAgregarPedido_Load);
             this.ResumeLayout(false);
