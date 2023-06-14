@@ -71,16 +71,30 @@ namespace conexionDB
 
         private void btnEliminarFisico_Click(object sender, EventArgs e)
         {
+            eliminar();
+        }
+
+        private void btnEliminarLogico_Click(object sender, EventArgs e)
+        {
+            eliminar(true);
+        }
+        private void eliminar(bool logico = false)
+        {
             PokemonNegocio pokemonNegocio = new PokemonNegocio();
-            Pokemon pokemonActual; 
+            Pokemon pokemonActual;
             try
             {
                 pokemonActual = (Pokemon)dgvPokedex.CurrentRow.DataBoundItem;
-                DialogResult devuelve= MessageBox.Show("¿Eliminar pokemon?", "Eliminando",MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
-                if (devuelve == DialogResult.Yes)
+                DialogResult resultado = MessageBox.Show("¿Eliminar pokemon?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                
+                if (resultado == DialogResult.Yes)
                 {
-                pokemonNegocio.borrar(pokemonActual.Id);
-                cargarGrilla();
+                    if (logico)
+                        pokemonNegocio.eliminarLogico(pokemonActual.Id);
+                    else
+                        pokemonNegocio.eliminarFisico(pokemonActual.Id);
+
+                    cargarGrilla();
                 }
             }
             catch (Exception ex)
