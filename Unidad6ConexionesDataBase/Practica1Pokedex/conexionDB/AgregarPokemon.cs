@@ -14,9 +14,15 @@ namespace conexionDB
 {
     public partial class frmAgregarPokemon : Form
     {
+        private Pokemon pokemon = null;
         public frmAgregarPokemon()
         {
             InitializeComponent();
+        }
+        public frmAgregarPokemon(Pokemon pokemon)
+        {
+            InitializeComponent();
+            this.pokemon = pokemon;
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -26,19 +32,31 @@ namespace conexionDB
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
-            Pokemon pokemonnuevo = new Pokemon();
+            PokemonNegocio pokemonNegocio = new PokemonNegocio();
+
             try
             {
-                pokemonnuevo.numero = int.Parse(tbxNumero.Text);
-                pokemonnuevo.nombre = tbxNombre.Text;
-                pokemonnuevo.descripcion = tbxDescripcion.Text;
-                pokemonnuevo.tipo = (Elemento)cboTipo.SelectedItem;
-                pokemonnuevo.debilidad = (Elemento)cboDebilidad.SelectedItem;
-                pokemonnuevo.urlImagen = tbxUrl.Text;
-   
-                PokemonNegocio pokemonDato = new PokemonNegocio();
-                pokemonDato.agregar(pokemonnuevo);
-                MessageBox.Show("agregado exitosamente");
+                if (pokemon==null)
+                    pokemon = new Pokemon();
+                
+                pokemon.Numero = int.Parse(tbxNumero.Text);
+                pokemon.Nombre = tbxNombre.Text;
+                pokemon.Descripcion = tbxDescripcion.Text;
+                pokemon.Tipo = (Elemento)cboTipo.SelectedItem;
+                pokemon.Debilidad = (Elemento)cboDebilidad.SelectedItem;
+                pokemon.UrlImagen = tbxUrl.Text;
+
+                if (pokemon.Id == 0)
+                {
+                    pokemonNegocio.agregar(pokemon);
+                    MessageBox.Show("agregado exitosamente");
+                }
+                else
+                {
+                    pokemonNegocio.modificar(pokemon);
+                    MessageBox.Show("Modificado exitosamente");
+                }
+
             }
             catch (Exception ex)
             {
@@ -62,10 +80,26 @@ namespace conexionDB
 
         private void frmAgregarPokemon_Load(object sender, EventArgs e)
         {
-            ElementoNegocio negocio = new ElementoNegocio();
+            ElementoNegocio elementoNegocio = new ElementoNegocio();
             
-            cboTipo.DataSource = negocio.listar();
-            cboDebilidad.DataSource = negocio.listar();
+            cboTipo.DataSource = elementoNegocio.listar();
+            cboTipo.ValueMember = "id";
+            cboTipo.DisplayMember = "descripcion";
+            cboDebilidad.DataSource = elementoNegocio.listar();
+            cboDebilidad.ValueMember = "id";
+            cboDebilidad.DisplayMember = "descripcion";
+
+            if (pokemon != null)
+            {
+                tbxNumero.Text = pokemon.Numero.ToString();
+                tbxNombre.Text = pokemon.Nombre;
+                tbxDescripcion.Text = pokemon.Descripcion;
+                tbxUrl.Text = pokemon.UrlImagen;
+                mostraImagen(pokemon.UrlImagen);
+                cboDebilidad.SelectedValue = pokemon.Debilidad.id;
+                cboTipo.SelectedValue = pokemon.Tipo.id;
+            }
+                
         }
 
         private void tbxUrl_Leave(object sender, EventArgs e)

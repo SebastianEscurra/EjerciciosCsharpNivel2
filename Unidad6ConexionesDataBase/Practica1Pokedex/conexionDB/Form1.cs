@@ -27,14 +27,15 @@ namespace conexionDB
         private void cargarGrilla()
         {
             PokemonNegocio pokemons = new PokemonNegocio();
-            dgvPokedex.DataSource = pokemons.obtenerListaPokemon();
+            dgvPokedex.DataSource = pokemons.listar();
             dgvPokedex.Columns["urlImagen"].Visible = false;
+            dgvPokedex.Columns["Id"].Visible=false;
             mostrarImagen("https://www.gamespot.com/a/uploads/scale_medium/1601/16018044/3968710-pokedex-run.jpg");
         }
         private void dgvPokedex_SelectionChanged(object sender, EventArgs e)
         {
             Pokemon pokemonActual = (Pokemon)dgvPokedex.CurrentRow.DataBoundItem;
-            mostrarImagen(pokemonActual.urlImagen);
+            mostrarImagen(pokemonActual.UrlImagen);
         }
 
         public void mostrarImagen(string url)
@@ -56,7 +57,36 @@ namespace conexionDB
         {
             frmAgregarPokemon ventanaAgregarPokemon = new frmAgregarPokemon();
             ventanaAgregarPokemon.ShowDialog();// detiene la lectura lineal, continua cuando cierra
+            cargarGrilla(); //actualiza lista
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            Pokemon seleccionado = (Pokemon)dgvPokedex.CurrentRow.DataBoundItem;
+            frmAgregarPokemon ventanaModificar = new frmAgregarPokemon(seleccionado);
+            ventanaModificar.Text = "modificar pokemon";
+            ventanaModificar.ShowDialog();
             cargarGrilla();
+        }
+
+        private void btnEliminarFisico_Click(object sender, EventArgs e)
+        {
+            PokemonNegocio pokemonNegocio = new PokemonNegocio();
+            Pokemon pokemonActual; 
+            try
+            {
+                pokemonActual = (Pokemon)dgvPokedex.CurrentRow.DataBoundItem;
+                DialogResult devuelve= MessageBox.Show("¿Eliminar pokemon?", "Eliminando",MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
+                if (devuelve == DialogResult.Yes)
+                {
+                pokemonNegocio.borrar(pokemonActual.Id);
+                cargarGrilla();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

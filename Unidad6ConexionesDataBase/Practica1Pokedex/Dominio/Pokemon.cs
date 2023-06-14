@@ -9,16 +9,17 @@ namespace Dominio
 {
     public class Pokemon
     {
+        public int Id { get; set; }
         [DisplayName("Número")]
-        public int numero { get; set; }
+        public int Numero { get; set; }
         [DisplayName("Nombre")]
-        public string nombre { get; set; }
+        public string Nombre { get; set; }
         [DisplayName("Descripción")]
-        public string descripcion { get; set; }
+        public string Descripcion { get; set; }
         [DisplayName("Tipo")]
-        public Elemento tipo { get; set; }
+        public Elemento Tipo { get; set; }
         [DisplayName("Debilidad")]
-        public Elemento debilidad { get; set; }
-        public string urlImagen { get; set; }
+        public Elemento Debilidad { get; set; }
+        public string UrlImagen { get; set; }
     }
 }

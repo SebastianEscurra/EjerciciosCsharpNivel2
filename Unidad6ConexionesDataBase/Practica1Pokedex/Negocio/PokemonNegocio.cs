@@ -10,7 +10,7 @@ namespace Negocio
 {
     public class PokemonNegocio
     {
-        public List<Pokemon> obtenerListaPokemon()
+        public List<Pokemon> listar()
         {
             List<Pokemon> pokemons = new List<Pokemon>();
 
@@ -24,7 +24,7 @@ namespace Negocio
             {
                 conexion.ConnectionString = "server= (local)\\SQLexpress;database=POKEDEX_DB;integrated security=true;";
                 comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = "select p.Numero,p.Nombre,p.Descripcion,e.Id IdTipo,e.Descripcion Tipo,d.Id IdDebilidad,d.Descripcion Debilidad,p.UrlImagen url from POKEMONS p, ELEMENTOS e,ELEMENTOS d where e.Id=p.IdTipo and d.Id=p.IdDebilidad\r\n";
+                comando.CommandText = "select p.Id ,p.Numero,p.Nombre,p.Descripcion,e.Id IdTipo,e.Descripcion Tipo,d.Id IdDebilidad,d.Descripcion Debilidad,p.UrlImagen UrlImagen from POKEMONS p, ELEMENTOS e,ELEMENTOS d where e.Id=p.IdTipo and d.Id=p.IdDebilidad";
                 comando.Connection = conexion;
 
                 conexion.Open();
@@ -34,17 +34,18 @@ namespace Negocio
                 while (lector.Read())
                 {
                     Pokemon aux = new Pokemon();
-                    aux.nombre = (string)lector["Nombre"];
-                    aux.numero = (int)lector["Numero"];
-                    aux.descripcion = (string)lector["Descripcion"];
-                    aux.tipo = new Elemento();
-                    aux.tipo.id = (int)lector["IdTipo"];
-                    aux.tipo.descripcion = (string)lector["Tipo"];
-                    aux.debilidad = new Elemento();
-                    aux.debilidad.id = (int)lector["IdDebilidad"];
-                    aux.debilidad.descripcion = (string)lector["Debilidad"];
-                    if (!(lector["url"] is DBNull)) // leer si NO es null la celda en la que esta.
-                        aux.urlImagen = (string)lector["url"];
+                    aux.Id = (int)lector["id"];
+                    aux.Nombre = (string)lector["Nombre"];
+                    aux.Numero = (int)lector["Numero"];
+                    aux.Descripcion = (string)lector["Descripcion"];
+                    aux.Tipo = new Elemento();
+                    aux.Tipo.id = (int)lector["IdTipo"];
+                    aux.Tipo.descripcion = (string)lector["Tipo"];
+                    aux.Debilidad = new Elemento();
+                    aux.Debilidad.id = (int)lector["IdDebilidad"];
+                    aux.Debilidad.descripcion = (string)lector["Debilidad"];
+                    if (!(lector["UrlImagen"] is DBNull)) // leer si NO es null la celda en la que esta.
+                        aux.UrlImagen = (string)lector["Urlimagen"];
 
                     pokemons.Add(aux);
                 }
@@ -63,9 +64,9 @@ namespace Negocio
 
             try
             {
-                dato.setearConsultaDB("insert into POKEMONS(Numero,Nombre,Descripcion,IdTipo,IdDebilidad, Activo, UrlImagen ) values (" + pokemonNuevo.numero+ ",'"+pokemonNuevo.nombre+"','"+pokemonNuevo.descripcion+"',"+pokemonNuevo.tipo.id+",@debilidad,1,@url)");
-                dato.ingresarParametros("@debilidad",pokemonNuevo.debilidad.id);
-                dato.ingresarParametros("@url", pokemonNuevo.urlImagen);
+                dato.setearConsultaDB("insert into POKEMONS(Numero,Nombre,Descripcion,IdTipo,IdDebilidad, Activo, UrlImagen ) values (" + pokemonNuevo.Numero+ ",'"+pokemonNuevo.Nombre+"','"+pokemonNuevo.Descripcion+"',"+pokemonNuevo.Tipo.id+",@debilidad,1,@url)");
+                dato.setearParametros("@debilidad",pokemonNuevo.Debilidad.id);
+                dato.setearParametros("@url", pokemonNuevo.UrlImagen);
                 dato.ejecutarAccion();
             }
             catch (Exception ex)    
@@ -79,6 +80,52 @@ namespace Negocio
             }
              
 
+        }
+        public void modificar(Pokemon pokemonAmodificar)
+        {
+            AccesoDatos dato = new AccesoDatos();
+
+            try
+            {
+                dato.setearConsultaDB("update POKEMONS set  Numero=@numero,Nombre=@nombre,Descripcion=@descripcion,IdTipo=@idTipo,IdDebilidad=@idDebilidad,UrlImagen=@url where Id= @id");
+                dato.setearParametros("@id", pokemonAmodificar.Id);
+                dato.setearParametros("@numero", pokemonAmodificar.Numero);
+                dato.setearParametros("@nombre", pokemonAmodificar.Nombre);
+                dato.setearParametros("@descripcion", pokemonAmodificar.Descripcion);
+                dato.setearParametros("@idTipo", pokemonAmodificar.Tipo.id);
+                dato.setearParametros("@idDebilidad", pokemonAmodificar.Debilidad.id);
+                dato.setearParametros("@url", pokemonAmodificar.UrlImagen);
+
+                dato.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                dato.cerrarConexion();
+            }
+        }
+        public void borrar(int id)
+        {
+            AccesoDatos dato = new AccesoDatos();
+            try
+            {
+                dato.setearConsultaDB("delete POKEMONS where Id=@Id");
+                dato.setearParametros("@Id",id);
+                dato.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                dato.cerrarConexion();
+            }
         }
     }
 }
