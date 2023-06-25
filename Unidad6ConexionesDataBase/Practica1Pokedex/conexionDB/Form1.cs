@@ -15,6 +15,7 @@ namespace conexionDB
 {
     public partial class Form1 : Form
     {
+        private List<Pokemon> pokemons;
         public Form1()
         {
             InitializeComponent();
@@ -26,16 +27,24 @@ namespace conexionDB
         }
         private void cargarGrilla()
         {
-            PokemonNegocio pokemons = new PokemonNegocio();
-            dgvPokedex.DataSource = pokemons.listar();
-            dgvPokedex.Columns["urlImagen"].Visible = false;
-            dgvPokedex.Columns["Id"].Visible=false;
+            PokemonNegocio negocio = new PokemonNegocio();
+            pokemons = negocio.listar();
+            dgvPokedex.DataSource = pokemons;
+            ocultarColumnas();
             mostrarImagen("https://www.gamespot.com/a/uploads/scale_medium/1601/16018044/3968710-pokedex-run.jpg");
+        }
+        private void ocultarColumnas()
+        {
+            dgvPokedex.Columns["urlImagen"].Visible = false;
+            dgvPokedex.Columns["Id"].Visible = false;
         }
         private void dgvPokedex_SelectionChanged(object sender, EventArgs e)
         {
+            if (dgvPokedex.CurrentRow != null)
+            {
             Pokemon pokemonActual = (Pokemon)dgvPokedex.CurrentRow.DataBoundItem;
             mostrarImagen(pokemonActual.UrlImagen);
+            }
         }
 
         public void mostrarImagen(string url)
@@ -101,6 +110,21 @@ namespace conexionDB
             {
                 MessageBox.Show(ex.ToString());
             }
+        }
+
+        private void btnFiltro_Click(object sender, EventArgs e)
+        {
+            string filtro = tbxFiltro.Text;
+            List<Pokemon> listaFiltrada;
+            
+            if (filtro != "")
+                listaFiltrada=pokemons.FindAll(x => x.Nombre.ToUpper().Contains(filtro.ToUpper()) || x.Tipo.descripcion.ToUpper().Contains(filtro.ToUpper()));
+            else
+                listaFiltrada = pokemons;
+
+            dgvPokedex.DataSource = null;
+            dgvPokedex.DataSource = listaFiltrada;
+            ocultarColumnas();
         }
     }
 }
