@@ -107,20 +107,21 @@
             this.lblFiltro.AutoSize = true;
             this.lblFiltro.Location = new System.Drawing.Point(13, 39);
             this.lblFiltro.Name = "lblFiltro";
-            this.lblFiltro.Size = new System.Drawing.Size(32, 13);
+            this.lblFiltro.Size = new System.Drawing.Size(64, 13);
             this.lblFiltro.TabIndex = 7;
-            this.lblFiltro.Text = "Filtro:";
+            this.lblFiltro.Text = "Filtro rapido:";
             // 
             // tbxFiltro
             // 
-            this.tbxFiltro.Location = new System.Drawing.Point(55, 35);
+            this.tbxFiltro.Location = new System.Drawing.Point(78, 36);
             this.tbxFiltro.Name = "tbxFiltro";
             this.tbxFiltro.Size = new System.Drawing.Size(126, 20);
             this.tbxFiltro.TabIndex = 8;
+            this.tbxFiltro.TextChanged += new System.EventHandler(this.tbxFiltro_TextChanged);
             // 
             // btnFiltro
             // 
-            this.btnFiltro.Location = new System.Drawing.Point(187, 33);
+            this.btnFiltro.Location = new System.Drawing.Point(535, 267);
             this.btnFiltro.Name = "btnFiltro";
             this.btnFiltro.Size = new System.Drawing.Size(75, 23);
             this.btnFiltro.TabIndex = 9;

@@ -114,11 +114,16 @@ namespace conexionDB
 
         private void btnFiltro_Click(object sender, EventArgs e)
         {
-            string filtro = tbxFiltro.Text;
+          
+        }
+
+        private void tbxFiltro_TextChanged(object sender, EventArgs e)
+        {
             List<Pokemon> listaFiltrada;
+            string filtro = tbxFiltro.Text;
             
-            if (filtro != "")
-                listaFiltrada=pokemons.FindAll(x => x.Nombre.ToUpper().Contains(filtro.ToUpper()) || x.Tipo.descripcion.ToUpper().Contains(filtro.ToUpper()));
+            if (filtro.Length >= 3)
+                listaFiltrada = pokemons.FindAll(x => x.Nombre.ToUpper().Contains(filtro.ToUpper()) || x.Tipo.descripcion.ToUpper().Contains(filtro.ToUpper()));
             else
                 listaFiltrada = pokemons;
 
