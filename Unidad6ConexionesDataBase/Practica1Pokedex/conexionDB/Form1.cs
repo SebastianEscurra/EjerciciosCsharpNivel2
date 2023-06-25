@@ -24,6 +24,9 @@ namespace conexionDB
         private void Form1_Load(object sender, EventArgs e)
         {
             cargarGrilla();
+            cboCampo.Items.Add("Nombre");
+            cboCampo.Items.Add("Número");
+            cboCampo.Items.Add("Descripción");
         }
         private void cargarGrilla()
         {
@@ -114,7 +117,13 @@ namespace conexionDB
 
         private void btnFiltro_Click(object sender, EventArgs e)
         {
-          
+            string campo = cboCampo.SelectedItem.ToString();
+            string criterio = cboCritrerio.SelectedItem.ToString();
+            string filtro = txbFiltroAvanzado.Text;
+            PokemonNegocio negocio = new PokemonNegocio();
+
+            dgvPokedex.DataSource = negocio.filtrar(campo,criterio,filtro);
+
         }
 
         private void tbxFiltro_TextChanged(object sender, EventArgs e)
@@ -130,6 +139,23 @@ namespace conexionDB
             dgvPokedex.DataSource = null;
             dgvPokedex.DataSource = listaFiltrada;
             ocultarColumnas();
+        }
+
+        private void cboCampo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cboCritrerio.Items.Clear();
+            if (cboCampo.SelectedItem.ToString()=="Número")
+            {
+                cboCritrerio.Items.Add("Mayor a");
+                cboCritrerio.Items.Add("Menor a");
+                cboCritrerio.Items.Add("Igual a");
+            }
+            else
+            {
+                cboCritrerio.Items.Add("Empiece con");
+                cboCritrerio.Items.Add("Termine con");
+                cboCritrerio.Items.Add("Contenga");
+            }
         }
     }
 }
