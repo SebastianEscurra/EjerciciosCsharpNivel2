@@ -46,14 +46,44 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Form1.cs">
+    <Compile Include="frmFiltroAvanzado.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="frmFiltroAvanzado.Designer.cs">
+      <DependentUpon>frmFiltroAvanzado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmGestorDeElementos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmGestorDeElementos.Designer.cs">
+      <DependentUpon>frmGestorDeElementos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmInicio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmInicio.Designer.cs">
+      <DependentUpon>frmInicio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmPrincipal.Designer.cs">
+      <DependentUpon>frmPrincipal.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="frmFiltroAvanzado.resx">
+      <DependentUpon>frmFiltroAvanzado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmGestorDeElementos.resx">
+      <DependentUpon>frmGestorDeElementos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmInicio.resx">
+      <DependentUpon>frmInicio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmPrincipal.resx">
+      <DependentUpon>frmPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -75,6 +105,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Domino2\Domino2.csproj">
+      <Project>{87293784-bad3-40af-bfd3-633da4a36ab1}</Project>
+      <Name>Domino2</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Negocio2\Negocio2.csproj">
+      <Project>{2885760d-9567-4fc9-9b1a-91a9c03814be}</Project>
+      <Name>Negocio2</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
