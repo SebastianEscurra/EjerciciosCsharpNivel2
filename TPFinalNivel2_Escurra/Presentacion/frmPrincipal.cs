@@ -24,10 +24,10 @@ namespace Presentacion
             articuloNegocio = new ArticuloNegocio();
         }
 
-        private void btnFiltrar_Click(object sender, EventArgs e)
+        private void frmPrincipal_Load(object sender, EventArgs e)
         {
-            frmFiltroAvanzado filtroAvanzado = new frmFiltroAvanzado(dgvArticulos,listaArticulos);
-            filtroAvanzado.ShowDialog();
+            Helper.cargarGrid(dgvArticulos,ref listaArticulos);
+            
         }
 
         private void btnAgregar_Click(object sender, EventArgs e)
@@ -43,24 +43,7 @@ namespace Presentacion
             frmGestorDeElementos modificar = new frmGestorDeElementos(seleccionado);
             modificar.ShowDialog();
             Helper.cargarGrid(dgvArticulos,ref listaArticulos);
-        }
-
-        private void frmPrincipal_Load(object sender, EventArgs e)
-        {
-            Helper.cargarGrid(dgvArticulos,ref listaArticulos);
-            
-        }
-
-
-
-        private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
-        {
-            Articulo actual = new Articulo();
-            if (!(dgvArticulos.CurrentRow is null))
-            {
-                actual = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-                Helper.cargarImagen(pbxArticulos, actual.UrlImagen);
-            }
+            Helper.eliminarImagenSinReferencia();
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -71,7 +54,15 @@ namespace Presentacion
             {
                 articuloNegocio.eliminarFisico(seleccionado.Id);
                 Helper.cargarGrid(dgvArticulos,ref listaArticulos);
+                Helper.eliminarImagenSinReferencia();
             }
+        }
+
+        private void btnDetalles_Click(object sender, EventArgs e)
+        {
+            Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+            frmDetalles detalles = new frmDetalles(seleccionado);
+            detalles.ShowDialog();
         }
 
         private void txtFiltroRapido_TextChanged(object sender, EventArgs e)
@@ -89,5 +80,22 @@ namespace Presentacion
             dgvArticulos.DataSource = listaFiltrada;
 
         }
+
+        private void btnFiltrar_Click(object sender, EventArgs e)
+        {
+            frmFiltroAvanzado filtroAvanzado = new frmFiltroAvanzado(dgvArticulos,listaArticulos);
+            filtroAvanzado.ShowDialog();
+        }
+
+        private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
+        {
+            Articulo actual = new Articulo();
+            if (!(dgvArticulos.CurrentRow is null))
+            {
+                actual = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                Helper.cargarImagen(pbxArticulos, actual.UrlImagen);
+            }
+        }
+
     }
 }

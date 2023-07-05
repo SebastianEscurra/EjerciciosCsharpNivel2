@@ -14,30 +14,17 @@ namespace Presentacion
 {
     public partial class frmFiltroAvanzado : Form
     {
+        //Atributos
         private DataGridView grid;
         private List<Articulo> listaArticulo;
+        //Constructor
         public frmFiltroAvanzado(DataGridView dgvArticulos,List<Articulo> listaArticulo)
         {
             InitializeComponent();
             grid = dgvArticulos;
             this.listaArticulo = listaArticulo;
         }
-
-        private void btnAceptar_Click(object sender, EventArgs e)
-        {
-            string campo = cmbCampo.Text;
-            string criterio = cmbCriterio.Text;
-            string filtro = txtFiltroAvanzado.Text;
-            Helper.cargarGrid(grid, ref listaArticulo,campo,criterio,filtro);
-             //carga el grid pero no actuliza el valor de la lista de articulos del formulario principal
-            
-        }
-
-        private void btnCAncelar_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
+        //Eventos
         private void frmFiltroAvanzado_Load(object sender, EventArgs e)
         {
             cmbCampo.Items.Add("Código de articulo");
@@ -46,7 +33,6 @@ namespace Presentacion
             cmbCampo.Items.Add("Categoria");
             cmbCampo.Items.Add("Precio");
         }
-
         private void cmbCampo_SelectedIndexChanged(object sender, EventArgs e)
         {
             cmbCriterio.Items.Clear();
@@ -63,5 +49,21 @@ namespace Presentacion
                 cmbCriterio.Items.Add("Contiene");
             }
         }
+
+        private void btnCAncelar_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            string campo = cmbCampo.Text;
+            string criterio = cmbCriterio.Text;
+            string filtro = txtFiltroAvanzado.Text;
+            Helper.cargarGrid(grid, ref listaArticulo,campo,criterio,filtro);
+             //carga el grid pero no actuliza el valor de la lista de articulos del formulario principal
+            
+        }
+
     }
 }

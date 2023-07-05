@@ -2,6 +2,8 @@
 using Negocio2;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,9 +14,13 @@ namespace Presentacion
 {
     internal static class Helper
     {
+        private static ArticuloNegocio negocio;
+        static Helper()
+        {
+            negocio = new ArticuloNegocio();
+        }
         public static void cargarGrid(DataGridView grid,ref List<Articulo> listaArticulos)
         {
-            ArticuloNegocio negocio = new ArticuloNegocio();
             listaArticulos = negocio.listar();
             grid.DataSource = listaArticulos;
             grid.Columns["Id"].Visible = false;
@@ -23,7 +29,6 @@ namespace Presentacion
         }
         public static void cargarGrid(DataGridView grid, ref List<Articulo> listaArticulos,string campo,string criterio,string filtro)// Carga con el filtro
         {
-            ArticuloNegocio negocio = new ArticuloNegocio();
             listaArticulos = negocio.filtrar(campo,criterio,filtro);
             grid.DataSource = listaArticulos;
             grid.Columns["Id"].Visible = false;
@@ -39,6 +44,23 @@ namespace Presentacion
             catch (Exception)
             {
                 pictureBox.Load("https://www.puroverso.com.uy/images/virtuemart/product/9788430531325.jpg");
+            }
+        }
+        public static void eliminarImagenSinReferencia()
+        {
+            string direccion = ConfigurationManager.AppSettings["gestionArticulos-app"];
+            bool borrar;
+            foreach (var imagenLocal in Directory.GetFiles(direccion))
+            {
+                borrar = true;
+                foreach (var articulo in negocio.listar())
+                {
+                    if (!articulo.UrlImagen.ToUpper().Contains("HTTP") &&  articulo.UrlImagen==imagenLocal)
+                        borrar = false;
+                }
+
+                if(borrar)
+                    File.Delete(imagenLocal);
             }
         }
     }

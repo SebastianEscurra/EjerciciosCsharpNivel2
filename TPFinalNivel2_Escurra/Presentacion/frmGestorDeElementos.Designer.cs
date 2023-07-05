@@ -45,6 +45,7 @@
             this.txtUrl = new System.Windows.Forms.TextBox();
             this.txtPrecio = new System.Windows.Forms.TextBox();
             this.pbxArticulo = new System.Windows.Forms.PictureBox();
+            this.btnAgregarImagenLocal = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbxArticulo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -187,18 +188,29 @@
             // 
             // pbxArticulo
             // 
-            this.pbxArticulo.Location = new System.Drawing.Point(210, 68);
+            this.pbxArticulo.Location = new System.Drawing.Point(236, 67);
             this.pbxArticulo.Name = "pbxArticulo";
             this.pbxArticulo.Size = new System.Drawing.Size(135, 127);
             this.pbxArticulo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbxArticulo.TabIndex = 4;
             this.pbxArticulo.TabStop = false;
             // 
+            // btnAgregarImagenLocal
+            // 
+            this.btnAgregarImagenLocal.Location = new System.Drawing.Point(210, 145);
+            this.btnAgregarImagenLocal.Name = "btnAgregarImagenLocal";
+            this.btnAgregarImagenLocal.Size = new System.Drawing.Size(20, 23);
+            this.btnAgregarImagenLocal.TabIndex = 5;
+            this.btnAgregarImagenLocal.Text = "+";
+            this.btnAgregarImagenLocal.UseVisualStyleBackColor = true;
+            this.btnAgregarImagenLocal.Click += new System.EventHandler(this.btnAgregarImagenLocal_Click);
+            // 
             // frmGestorDeElementos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(348, 293);
+            this.ClientSize = new System.Drawing.Size(383, 319);
+            this.Controls.Add(this.btnAgregarImagenLocal);
             this.Controls.Add(this.pbxArticulo);
             this.Controls.Add(this.cmbCategoria);
             this.Controls.Add(this.cmbMarca);
@@ -244,5 +256,6 @@
         private System.Windows.Forms.TextBox txtUrl;
         private System.Windows.Forms.TextBox txtPrecio;
         private System.Windows.Forms.PictureBox pbxArticulo;
+        private System.Windows.Forms.Button btnAgregarImagenLocal;
     }
 }

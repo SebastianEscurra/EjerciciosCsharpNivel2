@@ -5,18 +5,22 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace Presentacion
 {
     public partial class frmGestorDeElementos : Form
     {
-        
-        Articulo articulo = null;
-        
+        //Atributos
+        private Articulo articulo = null;
+        private OpenFileDialog archivo = null;
+
+        //Constructores
         public frmGestorDeElementos()
         {
             InitializeComponent();
@@ -29,11 +33,7 @@ namespace Presentacion
             articulo = articuloSeleccionado;
         }
 
-        private void btnCancelar_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
+        //Eventos
         private void frmGestorDeElementos_Load(object sender, EventArgs e)
         {
             MarcaNegocio marcaNegocio = new MarcaNegocio();
@@ -64,6 +64,26 @@ namespace Presentacion
             
         }
 
+        private void btnAgregarImagenLocal_Click(object sender, EventArgs e)
+        {
+            archivo = new OpenFileDialog();
+            archivo.Filter = "jpg|*.jpg;| png|*.png";
+            archivo.ShowDialog();
+            Helper.cargarImagen(pbxArticulo, archivo.FileName);
+            txtUrl.Text = archivo.FileName;
+            
+        }
+
+        private void txtUrl_Leave(object sender, EventArgs e)
+        {
+            Helper.cargarImagen(pbxArticulo, txtUrl.Text);
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
@@ -80,6 +100,7 @@ namespace Presentacion
                 articulo.Marca =(Marca)cmbMarca.SelectedItem;
                 articulo.Categoria =(Categoria)cmbCategoria.SelectedItem;
                 articulo.UrlImagen = txtUrl.Text;
+                copiarImagenAcarpetaLocal(ref articulo);
                 articulo.Precio = decimal.Parse(txtPrecio.Text);
 
                 if (articulo.Id == 0)
@@ -98,11 +119,31 @@ namespace Presentacion
 
                 MessageBox.Show(ex.ToString());
             }
+
+            
+
         }
 
-        private void txtUrl_Leave(object sender, EventArgs e)
+        //Metodos
+        private void copiarImagenAcarpetaLocal(ref Articulo articulo)
         {
-            Helper.cargarImagen(pbxArticulo, txtUrl.Text);
+            //
+            //Sise toco el btn para agregar imagen y si no se modifico el txturl
+            //
+            if (archivo != null && txtUrl.Text == archivo.FileName)
+            {
+                string direccion = ConfigurationManager.AppSettings["gestionArticulos-app"];
+                string nombreImagen = archivo.SafeFileName;
+                //
+                //Actualizamos la url de la base de datos
+                //
+                articulo.UrlImagen = direccion + nombreImagen;
+                //
+                //Copiamos a carpeta local
+                //
+                File.Copy(archivo.FileName, direccion + nombreImagen);
+            }
         }
+
     }
 }

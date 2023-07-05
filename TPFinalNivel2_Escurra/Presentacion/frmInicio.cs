@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace Presentacion
 {
@@ -24,13 +26,25 @@ namespace Presentacion
                                    "-Visualizar cada uno detalladamente.\r\n" +
                                    "\r\n¡Gestiona tu comenrcio de la mano de esta app!";
         }
-
+        //Eventos
         private void btnEmpezar_Click(object sender, EventArgs e)
         {
             frmPrincipal principal = new frmPrincipal();
             this.Visible = false;
+            crearCarpetaLocalParaImagenes();
             principal.ShowDialog();
             this.Close();
+        }
+        //Metodos
+        private void crearCarpetaLocalParaImagenes() 
+        {
+            string direccionDeCarpeta = "C:\\gestionArticulos-app";// El problema podria ser que no tenga disco con nombre C....
+
+            if (!Directory.Exists(direccionDeCarpeta))
+            {
+                Directory.CreateDirectory(direccionDeCarpeta);
+                MessageBox.Show("carpeta para guardar archivos locales creada en " + direccionDeCarpeta);
+            }
         }
     }
 }
