@@ -26,7 +26,7 @@ namespace Presentacion
 
         private void btnFiltrar_Click(object sender, EventArgs e)
         {
-            frmFiltroAvanzado filtroAvanzado = new frmFiltroAvanzado();
+            frmFiltroAvanzado filtroAvanzado = new frmFiltroAvanzado(dgvArticulos,listaArticulos);
             filtroAvanzado.ShowDialog();
         }
 
@@ -34,21 +34,59 @@ namespace Presentacion
         {
             frmGestorDeElementos agregar = new frmGestorDeElementos();
             agregar.ShowDialog();
+            Helper.cargarGrid(dgvArticulos,ref listaArticulos);
         }
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            frmGestorDeElementos modificar = new frmGestorDeElementos();
+            Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+            frmGestorDeElementos modificar = new frmGestorDeElementos(seleccionado);
             modificar.ShowDialog();
+            Helper.cargarGrid(dgvArticulos,ref listaArticulos);
         }
 
         private void frmPrincipal_Load(object sender, EventArgs e)
         {
-            listaArticulos = articuloNegocio.listar();
-            dgvArticulos.DataSource = listaArticulos;
-            dgvArticulos.Columns["Categoria"].Visible = false;
-            dgvArticulos.Columns["Id"].Visible = false;
-            dgvArticulos.Columns["Urlimagen"].Visible = false;
+            Helper.cargarGrid(dgvArticulos,ref listaArticulos);
+            
+        }
+
+
+
+        private void dgvArticulos_SelectionChanged(object sender, EventArgs e)
+        {
+            Articulo actual = new Articulo();
+            if (!(dgvArticulos.CurrentRow is null))
+            {
+                actual = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                Helper.cargarImagen(pbxArticulos, actual.UrlImagen);
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+            DialogResult resultado = MessageBox.Show("¿Eliminar el Articulo?","Eliminando",MessageBoxButtons.YesNo,MessageBoxIcon.Exclamation) ;;
+            if (resultado == DialogResult.Yes)
+            {
+                articuloNegocio.eliminarFisico(seleccionado.Id);
+                Helper.cargarGrid(dgvArticulos,ref listaArticulos);
+            }
+        }
+
+        private void txtFiltroRapido_TextChanged(object sender, EventArgs e)
+        {
+            List<Articulo> listaFiltrada=new List<Articulo>();
+            string Filtro = txtFiltroRapido.Text;
+
+           
+            if (Filtro.Length > 1) 
+                listaFiltrada= listaArticulos.FindAll(x => x.Codigo.ToUpper().Contains(Filtro.ToUpper()) || x.Nombre.ToUpper().Contains(Filtro.ToUpper()) || x.Descripcion.ToUpper().Contains(Filtro.ToUpper()) || x.Marca.Descripcion.ToUpper().Contains(Filtro.ToUpper()));
+            else
+                listaFiltrada = listaArticulos;
+            
+               
+            dgvArticulos.DataSource = listaFiltrada;
 
         }
     }

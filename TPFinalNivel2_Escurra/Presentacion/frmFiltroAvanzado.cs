@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Negocio2;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,18 +8,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Domino2;
 
 namespace Presentacion
 {
     public partial class frmFiltroAvanzado : Form
     {
-        public frmFiltroAvanzado()
+        private DataGridView grid;
+        private List<Articulo> listaArticulo;
+        public frmFiltroAvanzado(DataGridView dgvArticulos,List<Articulo> listaArticulo)
         {
             InitializeComponent();
+            grid = dgvArticulos;
+            this.listaArticulo = listaArticulo;
         }
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            string campo = cmbCampo.Text;
+            string criterio = cmbCriterio.Text;
+            string filtro = txtFiltroAvanzado.Text;
+            Helper.cargarGrid(grid, ref listaArticulo,campo,criterio,filtro);
+             //carga el grid pero no actuliza el valor de la lista de articulos del formulario principal
             
         }
 
@@ -27,6 +38,30 @@ namespace Presentacion
             this.Close();
         }
 
+        private void frmFiltroAvanzado_Load(object sender, EventArgs e)
+        {
+            cmbCampo.Items.Add("Código de articulo");
+            cmbCampo.Items.Add("Nombre");
+            cmbCampo.Items.Add("Marca");
+            cmbCampo.Items.Add("Categoria");
+            cmbCampo.Items.Add("Precio");
+        }
 
+        private void cmbCampo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmbCriterio.Items.Clear();
+            if (cmbCampo.SelectedItem.ToString() == "Precio")
+            {
+                cmbCriterio.Items.Add("Mayor a");
+                cmbCriterio.Items.Add("Menor a");
+                cmbCriterio.Items.Add("Igual a");
+            }
+            else
+            {
+                cmbCriterio.Items.Add("Empieze con");
+                cmbCriterio.Items.Add("Termine con");
+                cmbCriterio.Items.Add("Contiene");
+            }
+        }
     }
 }

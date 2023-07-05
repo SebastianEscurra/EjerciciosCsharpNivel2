@@ -33,9 +33,9 @@
             this.lblCampo = new System.Windows.Forms.Label();
             this.lblCriterio = new System.Windows.Forms.Label();
             this.lblFiltroAvanzado = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.cmbCampo = new System.Windows.Forms.ComboBox();
+            this.cmbCriterio = new System.Windows.Forms.ComboBox();
+            this.txtFiltroAvanzado = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // btnAceptar
@@ -85,37 +85,40 @@
             this.lblFiltroAvanzado.TabIndex = 1;
             this.lblFiltroAvanzado.Text = "Filtro:";
             // 
-            // comboBox1
+            // cmbCampo
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(86, 26);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(121, 21);
-            this.comboBox1.TabIndex = 2;
+            this.cmbCampo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCampo.FormattingEnabled = true;
+            this.cmbCampo.Location = new System.Drawing.Point(86, 26);
+            this.cmbCampo.Name = "cmbCampo";
+            this.cmbCampo.Size = new System.Drawing.Size(121, 21);
+            this.cmbCampo.TabIndex = 2;
+            this.cmbCampo.SelectedIndexChanged += new System.EventHandler(this.cmbCampo_SelectedIndexChanged);
             // 
-            // comboBox2
+            // cmbCriterio
             // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(86, 65);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 21);
-            this.comboBox2.TabIndex = 2;
+            this.cmbCriterio.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbCriterio.FormattingEnabled = true;
+            this.cmbCriterio.Location = new System.Drawing.Point(86, 65);
+            this.cmbCriterio.Name = "cmbCriterio";
+            this.cmbCriterio.Size = new System.Drawing.Size(121, 21);
+            this.cmbCriterio.TabIndex = 2;
             // 
-            // textBox1
+            // txtFiltroAvanzado
             // 
-            this.textBox1.Location = new System.Drawing.Point(86, 121);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(121, 20);
-            this.textBox1.TabIndex = 3;
+            this.txtFiltroAvanzado.Location = new System.Drawing.Point(86, 121);
+            this.txtFiltroAvanzado.Name = "txtFiltroAvanzado";
+            this.txtFiltroAvanzado.Size = new System.Drawing.Size(121, 20);
+            this.txtFiltroAvanzado.TabIndex = 3;
             // 
             // frmFiltroAvanzado
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(293, 229);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.comboBox2);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.txtFiltroAvanzado);
+            this.Controls.Add(this.cmbCriterio);
+            this.Controls.Add(this.cmbCampo);
             this.Controls.Add(this.lblFiltroAvanzado);
             this.Controls.Add(this.lblCriterio);
             this.Controls.Add(this.lblCampo);
@@ -123,6 +126,7 @@
             this.Controls.Add(this.btnAceptar);
             this.Name = "frmFiltroAvanzado";
             this.Text = "frmFiltroAvanzado";
+            this.Load += new System.EventHandler(this.frmFiltroAvanzado_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -135,8 +139,8 @@
         private System.Windows.Forms.Label lblCampo;
         private System.Windows.Forms.Label lblCriterio;
         private System.Windows.Forms.Label lblFiltroAvanzado;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.ComboBox comboBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.ComboBox cmbCampo;
+        private System.Windows.Forms.ComboBox cmbCriterio;
+        private System.Windows.Forms.TextBox txtFiltroAvanzado;
     }
 }

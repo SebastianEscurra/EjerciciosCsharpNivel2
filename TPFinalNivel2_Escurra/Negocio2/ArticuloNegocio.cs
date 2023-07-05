@@ -110,17 +110,18 @@ namespace Negocio2
         }
         public void eliminarFisico(int id)
         {
+            //maxi me daba error de que cada consulta debe tener nombre diferente,
+            //por eso concatene el id que siempre es diferente, el la practica de pokemon no me paso esa exception.
             try
             {
-                datos.setearConsulta("delete ARTICULOS where Id=@id");
+                datos.setearConsulta("delete ARTICULOS where Id=@id" + id.ToString()); 
 
-                datos.setearParametros("@id", id);
+                datos.setearParametros("@id" + id.ToString(), id);
 
                 datos.ejecutarAccion();
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             finally
