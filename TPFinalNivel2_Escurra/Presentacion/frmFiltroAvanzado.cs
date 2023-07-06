@@ -65,5 +65,14 @@ namespace Presentacion
             
         }
 
+        private void txtFiltroAvanzado_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (cmbCampo.SelectedItem.ToString() == "Precio")
+            {
+                if ((e.KeyChar < 48 || e.KeyChar > 59) && e.KeyChar != 8)
+                    e.Handled = true;
+                txtFiltroAvanzado.MaxLength = 38;
+            }
+        }
     }
 }

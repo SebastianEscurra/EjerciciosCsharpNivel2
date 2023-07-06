@@ -16,14 +16,16 @@ namespace Presentacion
 {
     public partial class frmPrincipal : Form
     {
+        //Atributos
         private ArticuloNegocio articuloNegocio;
         private List<Articulo> listaArticulos;
+        //constructor
         public frmPrincipal()
         {
             InitializeComponent();
             articuloNegocio = new ArticuloNegocio();
         }
-
+        //Eventos
         private void frmPrincipal_Load(object sender, EventArgs e)
         {
             Helper.cargarGrid(dgvArticulos,ref listaArticulos);
@@ -39,30 +41,45 @@ namespace Presentacion
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-            frmGestorDeElementos modificar = new frmGestorDeElementos(seleccionado);
-            modificar.ShowDialog();
+            if (dgvArticulos.CurrentRow != null)
+            {
+                Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                frmGestorDeElementos modificar = new frmGestorDeElementos(seleccionado);
+                modificar.ShowDialog();
+            }
+            else
+                MessageBox.Show("No se selecciono un archivo para Modificar.");
+
             Helper.cargarGrid(dgvArticulos,ref listaArticulos);
             Helper.eliminarImagenSinReferencia();
         }
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {
-            Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-            DialogResult resultado = MessageBox.Show("¿Eliminar el Articulo?","Eliminando",MessageBoxButtons.YesNo,MessageBoxIcon.Exclamation) ;;
-            if (resultado == DialogResult.Yes)
+            if (dgvArticulos.CurrentRow != null)
             {
-                articuloNegocio.eliminarFisico(seleccionado.Id);
-                Helper.cargarGrid(dgvArticulos,ref listaArticulos);
-                Helper.eliminarImagenSinReferencia();
-            }
+                Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                DialogResult resultado = MessageBox.Show("¿Eliminar el Articulo?","Eliminando",MessageBoxButtons.YesNo,MessageBoxIcon.Exclamation) ;;
+                if (resultado == DialogResult.Yes)
+                {
+                    articuloNegocio.eliminarFisico(seleccionado.Id);
+                    Helper.cargarGrid(dgvArticulos,ref listaArticulos);
+                    Helper.eliminarImagenSinReferencia();
+                }
+            }else
+                MessageBox.Show("No se selecciono un archivo para Eliminar.");
         }
 
         private void btnDetalles_Click(object sender, EventArgs e)
         {
-            Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
-            frmDetalles detalles = new frmDetalles(seleccionado);
-            detalles.ShowDialog();
+            if (dgvArticulos.CurrentRow != null)
+            {
+                Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                frmDetalles detalles = new frmDetalles(seleccionado);
+                detalles.ShowDialog();
+            }
+            else
+                MessageBox.Show("No se selecciono un archivo para mostrar Detalles.");
         }
 
         private void txtFiltroRapido_TextChanged(object sender, EventArgs e)
@@ -72,7 +89,7 @@ namespace Presentacion
 
            
             if (Filtro.Length > 1) 
-                listaFiltrada= listaArticulos.FindAll(x => x.Codigo.ToUpper().Contains(Filtro.ToUpper()) || x.Nombre.ToUpper().Contains(Filtro.ToUpper()) || x.Descripcion.ToUpper().Contains(Filtro.ToUpper()) || x.Marca.Descripcion.ToUpper().Contains(Filtro.ToUpper()));
+                listaFiltrada= listaArticulos.FindAll(x => x.Codigo.ToUpper().Contains(Filtro.ToUpper()) || x.Nombre.ToUpper().Contains(Filtro.ToUpper()) || x.Descripcion.ToUpper().Contains(Filtro.ToUpper()) || x.Marca.Descripcion.ToUpper().Contains(Filtro.ToUpper()) || x.Categoria.Descripcion.ToUpper().Contains(Filtro.ToUpper()));
             else
                 listaFiltrada = listaArticulos;
             
@@ -97,5 +114,11 @@ namespace Presentacion
             }
         }
 
+        private void dgvArticulos_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
+        {
+            Helper.colorearBoton(btnModificar, dgvArticulos);
+            Helper.colorearBoton(btnEliminar,dgvArticulos);
+            Helper.colorearBoton(btnDetalles,dgvArticulos);
+        }
     }
 }

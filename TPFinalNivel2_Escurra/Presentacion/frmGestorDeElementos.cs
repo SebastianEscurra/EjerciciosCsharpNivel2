@@ -60,7 +60,12 @@ namespace Presentacion
                 Helper.cargarImagen(pbxArticulo, articulo.UrlImagen);
 
             }
-            
+
+            txtCodigo.MaxLength = 50;
+            txtNombre.MaxLength = 50;
+            txtDescripcion.MaxLength = 150;
+            txtUrl.MaxLength = 1000;
+            txtPrecio.MaxLength = 14;
             
         }
 
@@ -78,6 +83,39 @@ namespace Presentacion
         {
             Helper.cargarImagen(pbxArticulo, txtUrl.Text);
         }
+       
+        private void txtPrecio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if ((e.KeyChar <48 || e.KeyChar >59) && e.KeyChar != 8 )
+                e.Handled = true;
+        }
+
+        private void txtPrecio_TextChanged(object sender, EventArgs e)
+        {
+            if (txtPrecio.Text != "")
+                lblPrecioCompletar.ForeColor = Color.FromArgb(87, 104, 117);
+            else
+                lblPrecioCompletar.ForeColor = Color.FromArgb(168, 34, 22);
+            Helper.colorearBoton(btnAceptar,cmbCategoria,cmbMarca,txtPrecio);
+        }
+
+        private void cmbMarca_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbMarca.SelectedIndex >= 0)
+                lblMarcaCompletar.ForeColor = Color.FromArgb(87, 104, 117);
+            else
+                lblMarcaCompletar.ForeColor = Color.FromArgb(168, 34, 22);
+            Helper.colorearBoton(btnAceptar, cmbCategoria, cmbMarca, txtPrecio);
+        }
+
+        private void cmbCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cmbCategoria.SelectedIndex >= 0)
+                lblCategotiaCompletar.ForeColor = Color.FromArgb(87, 104, 117);
+            else
+                lblCategotiaCompletar.ForeColor = Color.FromArgb(168, 34, 22);
+            Helper.colorearBoton(btnAceptar, cmbCategoria, cmbMarca, txtPrecio);
+        }
 
         private void btnCancelar_Click(object sender, EventArgs e)
         {
@@ -86,6 +124,9 @@ namespace Presentacion
 
         private void btnAceptar_Click(object sender, EventArgs e)
         {
+            if (validar())
+                return;
+            
             ArticuloNegocio negocio = new ArticuloNegocio();
 
             if (articulo == null)
@@ -124,6 +165,7 @@ namespace Presentacion
 
         }
 
+
         //Metodos
         private void copiarImagenAcarpetaLocal(ref Articulo articulo)
         {
@@ -144,6 +186,16 @@ namespace Presentacion
                 File.Copy(archivo.FileName, direccion + nombreImagen);
             }
         }
+        private bool validar()
+        {
+            if (txtPrecio.Text == "")
+                return true;
 
+            if (cmbCategoria.SelectedIndex < 0 || cmbMarca.SelectedIndex < 0)
+                return true;
+
+            return false;
+        }
+       
     }
 }
